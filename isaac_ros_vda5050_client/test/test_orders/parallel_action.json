@@ -1,0 +1,110 @@
+{
+  "headerId": 0,
+  "timestamp": "2025-06-11T20:46:59.097343",
+  "version": "2.0.0",
+  "manufacturer": "",
+  "serialNumber": "",
+  "orderId": "parallel_action",
+  "orderUpdateId": 0,
+  "nodes": [
+    {
+      "nodeId": "s0",
+      "sequenceId": 0,
+      "released": true,
+      "nodePosition": {
+        "x": 0,
+        "y": 0,
+        "theta": 0,
+        "mapId": "",
+        "mapDescription": "",
+        "allowedDeviationXY": 1,
+        "allowedDeviationTheta": 3.14
+      },
+      "actions": [
+        {
+          "actionId": "0",
+          "actionType": "example_action",
+          "blockingType": "SOFT",
+          "actionParameters": [
+            {
+              "key": "success",
+              "value": "true"
+            }
+          ]
+        }, {
+          "actionId": "1",
+          "actionType": "example_action",
+          "blockingType": "SOFT",
+          "actionParameters": [
+            {
+              "key": "success",
+              "value": "true"
+            }
+          ]
+        }, {
+          "actionId": "2",
+          "actionType": "example_action",
+          "blockingType": "HARD",
+          "actionParameters": [
+            {
+              "key": "success",
+              "value": "true"
+            }
+          ]
+        }, {
+          "actionId": "3",
+          "actionType": "example_action",
+          "blockingType": "NONE",
+          "actionParameters": [
+            {
+              "key": "success",
+              "value": "true"
+            }
+          ]
+        }, {
+          "actionId": "4",
+          "actionType": "example_action",
+          "blockingType": "NONE",
+          "actionParameters": [
+            {
+              "key": "success",
+              "value": "true"
+            }
+          ]
+        }
+      ],
+      "nodeDescription": ""
+    },{
+      "nodeId": "s1",
+      "sequenceId": 1,
+      "released": true,
+      "nodePosition": {
+        "x": 1,
+        "y": 0,
+        "theta": 0,
+        "mapId": "",
+        "mapDescription": "",
+        "allowedDeviationXY": 1,
+        "allowedDeviationTheta": 3.14
+      },
+      "actions": [],
+      "nodeDescription": ""
+    },{
+      "nodeId": "s2",
+      "sequenceId": 0,
+      "released": true,
+      "nodePosition": {
+        "x": 0,
+        "y": 0,
+        "theta": 0,
+        "mapId": "",
+        "mapDescription": "",
+        "allowedDeviationXY": 0,
+        "allowedDeviationTheta": 0
+      },
+      "actions": [],
+      "nodeDescription": ""
+    }
+  ],
+  "edges": []
+}

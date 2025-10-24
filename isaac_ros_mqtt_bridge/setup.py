@@ -57,7 +57,11 @@ setup(
     maintainer_email='isaac-ros-maintainers@nvidia.com',
     description='MQTT Bridge',
     license='Apache-2.0',
-    tests_require=['pytest'],
+    extras_require={
+        'test': [
+            'pytest'
+        ]
+    },
     entry_points={
         'console_scripts': [
             'mqtt_to_ros_bridge_node = isaac_ros_mqtt_bridge.MqttToRosNode:main',

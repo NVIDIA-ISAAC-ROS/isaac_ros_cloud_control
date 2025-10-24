@@ -21,7 +21,7 @@ SPDX-License-Identifier: Apache-2.0
 <?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
 <package format="3">
   <name>isaac_ros_mission_client</name>
-  <version>3.2.5</version>
+  <version>4.0.0</version>
   <description>VDA5050-compatible mission controller</description>
 
   <maintainer email="isaac-ros-maintainers@nvidia.com">Isaac ROS Maintainers</maintainer>
@@ -35,8 +35,8 @@ SPDX-License-Identifier: Apache-2.0
   <depend>isaac_ros_json_info_generator</depend>
   <depend>isaac_ros_mqtt_bridge</depend>
   <depend>isaac_ros_scene_recorder</depend>
-  <depend>isaac_ros_vda5050_nav2_client</depend>
-  <depend>isaac_ros_vda5050_nav2_client_bringup</depend>
+  <depend>isaac_ros_vda5050_client</depend>
+  <depend>isaac_ros_vda5050_client_bringup</depend>
 
   <test_depend>ament_lint_auto</test_depend>
   <test_depend>ament_lint_common</test_depend>

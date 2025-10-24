@@ -1,0 +1,80 @@
+{
+  "headerId": 0,
+  "timestamp": "2025-06-11T20:46:59.097343",
+  "version": "2.0.0",
+  "manufacturer": "",
+  "serialNumber": "",
+  "orderId": "simple_order",
+  "orderUpdateId": 0,
+  "nodes": [
+    {
+      "nodeId": "simple_order-s0",
+      "sequenceId": 0,
+      "released": true,
+      "nodePosition": {
+        "x": 0,
+        "y": 0,
+        "theta": 0,
+        "mapId": "",
+        "mapDescription": "",
+        "allowedDeviationXY": 1,
+        "allowedDeviationTheta": 3.14
+      },
+      "actions": [
+        {
+          "actionId": "0",
+          "actionType": "example_action",
+          "actionParameters": [
+            {
+              "key": "success",
+              "value": "true"
+            }
+          ]
+        }
+      ],
+      "nodeDescription": ""
+    },{
+      "nodeId": "simple_order-s1",
+      "sequenceId": 1,
+      "released": true,
+      "nodePosition": {
+        "x": 1,
+        "y": 0,
+        "theta": 0,
+        "mapId": "",
+        "mapDescription": "",
+        "allowedDeviationXY": 1,
+        "allowedDeviationTheta": 3.14
+      },
+      "actions": [],
+      "nodeDescription": ""
+    },{
+      "nodeId": "simple_order-s2",
+      "sequenceId": 2,
+      "released": true,
+      "nodePosition": {
+        "x": 0,
+        "y": 0,
+        "theta": 0,
+        "mapId": "",
+        "mapDescription": "",
+        "allowedDeviationXY": 0,
+        "allowedDeviationTheta": 0
+      },
+      "actions": [
+        {
+          "actionId": "1",
+          "actionType": "example_action",
+          "actionParameters": [
+            {
+              "key": "success",
+              "value": "true"
+            }
+          ]
+        }
+      ],
+      "nodeDescription": ""
+    }
+  ],
+  "edges": []
+}

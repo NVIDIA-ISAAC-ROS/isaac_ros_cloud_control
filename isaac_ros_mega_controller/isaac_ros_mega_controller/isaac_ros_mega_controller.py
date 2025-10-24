@@ -71,10 +71,13 @@ class IsaacRosMegaController(Node):
         super().__init__('isaac_ros_mega_controller')
         # Declare_parameters
         self.declare_parameter('waypoints', '')
+        self.declare_parameter('nav2_check_interval', 10)
         self.cli = self.create_client(GetState, '/velocity_smoother/get_state')
         self._action_client = ActionClient(self, NavigateToPose, 'navigate_to_pose')
 
         # Parse input file
+        self.nav2_check_interval = \
+            self.get_parameter('nav2_check_interval').get_parameter_value().integer_value
         waypoints = self.get_parameter('waypoints').get_parameter_value().string_value
         try:
             with open(waypoints, 'r') as fp:
@@ -166,11 +169,11 @@ def main(args=None):
                 node.get_logger().info('Nav2 is up.')
                 break
             else:
-                node.get_logger().info('Waiting for Nav2.')
+                node.get_logger().info('Waiting for Nav2.', throttle_duration_sec=120)
         else:
             node.get_logger().error('Failed to get the state.')
         # Sleep for a while before the next call
-        time.sleep(3)
+        time.sleep(node.nav2_check_interval)
     # Start recording
     with ROSBagRecorder(node.bag_directory) if node.enable_upload_to_s3 else nullcontext():
         poses = []
@@ -196,6 +199,8 @@ def main(args=None):
             if result.status != GoalStatus.STATUS_SUCCEEDED:
                 node.get_logger().error('Goal failed.')
                 break
+            else:
+                node.get_logger().info(f'Goal {waypoint} is reached.')
     if node.enable_upload_to_s3:
         node.upload_to_s3()
 

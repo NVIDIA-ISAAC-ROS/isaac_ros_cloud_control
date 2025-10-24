@@ -1,8 +1,8 @@
-# Isaac ROS Mission Client
+# Isaac ROS Cloud Control
 
 VDA5050-compatible mission controller
 
-<div align="center"><a class="reference internal image-reference" href="https://media.githubusercontent.com/media/NVIDIA-ISAAC-ROS/.github/main/resources/isaac_ros_docs/repositories_and_packages/isaac_ros_mission_client/MD.png/"><img alt="image" src="https://media.githubusercontent.com/media/NVIDIA-ISAAC-ROS/.github/main/resources/isaac_ros_docs/repositories_and_packages/isaac_ros_mission_client/MD.png/" width="800px"/></a></div>
+<div align="center"><a class="reference internal image-reference" href="https://media.githubusercontent.com/media/NVIDIA-ISAAC-ROS/.github/release-4.0/resources/isaac_ros_docs/repositories_and_packages/isaac_ros_cloud_control/MD.png/"><img alt="image" src="https://media.githubusercontent.com/media/NVIDIA-ISAAC-ROS/.github/release-4.0/resources/isaac_ros_docs/repositories_and_packages/isaac_ros_cloud_control/MD.png/" width="800px"/></a></div>
 
 ---
 
@@ -12,11 +12,11 @@ Learn more about missions by watching our on-demand webinar: [Build Connected Ro
 
 ## Overview
 
-Isaac ROS Mission Client provides the ROS 2 packages for Mission Client, which
-communicates to a robot fleet management service. Mission Client
+Isaac ROS Cloud Control provides the ROS 2 packages for communication with
+a robot fleet management service, including Mission Client, a VDA5050-compatible client that
 receives tasks and actions from the fleet management service and updates
 its progress, state, and errors. Mission Client performs navigation
-actions with [Nav2](https://github.com/ros-planning/navigation2) and
+actions with [Nav2](https://github.com/ros-navigation/navigation2) and
 can be integrated with other ROS actions.
 
 The communication to Mission Client is based on the [VDA5050
@@ -33,18 +33,23 @@ MQTT.
 
 ## Documentation
 
-Please visit the [Isaac ROS Documentation](https://nvidia-isaac-ros.github.io/repositories_and_packages/isaac_ros_mission_client/index.html) to learn how to use this repository.
+Please visit the [Isaac ROS Documentation](https://nvidia-isaac-ros.github.io/repositories_and_packages/isaac_ros_cloud_control/index.html) to learn how to use this repository.
 
 ---
 
 ## Packages
 
-* [`isaac_ros_mission_client`](https://nvidia-isaac-ros.github.io/repositories_and_packages/isaac_ros_mission_client/isaac_ros_mission_client/index.html)
-  * [Overview](https://nvidia-isaac-ros.github.io/repositories_and_packages/isaac_ros_mission_client/isaac_ros_mission_client/index.html#overview)
-  * [Quickstart](https://nvidia-isaac-ros.github.io/repositories_and_packages/isaac_ros_mission_client/isaac_ros_mission_client/index.html#quickstart)
-  * [API](https://nvidia-isaac-ros.github.io/repositories_and_packages/isaac_ros_mission_client/isaac_ros_mission_client/index.html#api)
-* [`isaac_ros_scene_recorder`](https://nvidia-isaac-ros.github.io/repositories_and_packages/isaac_ros_mission_client/isaac_ros_scene_recorder/index.html)
-  * [Usage](https://nvidia-isaac-ros.github.io/repositories_and_packages/isaac_ros_mission_client/isaac_ros_scene_recorder/index.html#usage)
+* [`isaac_ros_mission_client`](https://nvidia-isaac-ros.github.io/repositories_and_packages/isaac_ros_cloud_control/isaac_ros_mission_client/index.html)
+  * [Overview](https://nvidia-isaac-ros.github.io/repositories_and_packages/isaac_ros_cloud_control/isaac_ros_mission_client/index.html#overview)
+  * [Quickstart](https://nvidia-isaac-ros.github.io/repositories_and_packages/isaac_ros_cloud_control/isaac_ros_mission_client/index.html#quickstart)
+  * [API](https://nvidia-isaac-ros.github.io/repositories_and_packages/isaac_ros_cloud_control/isaac_ros_mission_client/index.html#api)
+* [`isaac_ros_scene_recorder`](https://nvidia-isaac-ros.github.io/repositories_and_packages/isaac_ros_cloud_control/isaac_ros_scene_recorder/index.html)
+  * [Usage](https://nvidia-isaac-ros.github.io/repositories_and_packages/isaac_ros_cloud_control/isaac_ros_scene_recorder/index.html#usage)
+* [`vda5050_action_handler`](https://nvidia-isaac-ros.github.io/repositories_and_packages/isaac_ros_cloud_control/vda5050_action_handler/index.html)
+  * [Overview](https://nvidia-isaac-ros.github.io/repositories_and_packages/isaac_ros_cloud_control/vda5050_action_handler/index.html#overview)
+  * [Interface](https://nvidia-isaac-ros.github.io/repositories_and_packages/isaac_ros_cloud_control/vda5050_action_handler/index.html#interface)
+  * [Usage](https://nvidia-isaac-ros.github.io/repositories_and_packages/isaac_ros_cloud_control/vda5050_action_handler/index.html#usage)
+  * [Troubleshooting](https://nvidia-isaac-ros.github.io/repositories_and_packages/isaac_ros_cloud_control/vda5050_action_handler/index.html#troubleshooting)
 
 ## Quickstart
 
@@ -52,7 +57,7 @@ A Quickstart with Isaac Sim is [here](https://nvidia-isaac-ros.github.io/concept
 
 ## Latest
 
-Update 2024-12-10: Added actions to support object pick and place
+Update 2025-10-24: Renamed repository to isaac_ros_cloud_control, added support for multi-object pick and place, refactored isaac_ros_mission_client to a plugin-based action architecture
 
 ## Contributors
 

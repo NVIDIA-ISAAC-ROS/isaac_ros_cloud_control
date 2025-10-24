@@ -1,0 +1,33 @@
+# Goal: Defines the desired humanoid task
+string task_category # examples: manipulation, locomanipulation
+string task_id # examples: pick_and_place, assembly, mobile_manipulation, follow_natural_language
+
+geometry_msgs/PoseStamped locomotion_pose # Target location for robot base (optional, for locomotion/locomanipulation)
+string language_instruction # Natural language command (optional, for VLA tasks)
+# Execution parameters
+float32 timeout # Task timeout in seconds (0 for no timeout)
+string parameters # Flexible JSON string for policy-specific input parameters
+---
+# Result: Outcome of the humanoid task
+bool did_succeed # True if the task completed successfully
+string message # Human-readable message about the outcome (e.g., "Object picked successfully", "Grasping failed")
+geometry_msgs/PoseStamped final_locomotion_pose # Final robot base pose (if applicable)
+sensor_msgs/JointState final_joint_state # Final robot joint configuration
+float32 execution_time
+string result_data # Additional JSON string for policy-specific result data
+---
+# Feedback: Real-time progress updates during task execution
+# Current execution status
+int32 status
+float32 current_execution_time
+geometry_msgs/PoseStamped current_base_pose # Current robot base pose
+sensor_msgs/JointState current_joint_state
+string current_instruction
+# Status constants
+int32 IDLE = 0
+int32 EXECUTING = 1
+int32 COMPLETED = 2
+int32 FAILED = 3
+int32 CANCELLED = 4
+
+

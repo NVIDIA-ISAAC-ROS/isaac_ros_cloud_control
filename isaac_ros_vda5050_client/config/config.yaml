@@ -1,0 +1,6 @@
+action_handlers:
+  - example
+example:
+  plugin: isaac_ros::mission_client::ExampleActionHandler
+  action_types:
+    - example_action

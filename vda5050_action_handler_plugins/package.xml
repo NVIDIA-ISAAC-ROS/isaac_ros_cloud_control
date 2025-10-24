@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>vda5050_action_handler_plugins</name>
+  <version>4.0.0</version>
+  <description>Plugins for VDA5050 action handler integration with Isaac ROS.</description>
+  <maintainer email="isaac-ros-maintainers@nvidia.com">Isaac ROS Maintainers</maintainer>
+  <license>NVIDIA Isaac ROS Software License</license>
+
+  <buildtool_depend>ament_cmake_auto</buildtool_depend>
+  <build_depend>isaac_ros_common</build_depend>
+
+  <depend>rclcpp</depend>
+  <depend>rcl_action</depend>
+  <depend>vda5050_msgs</depend>
+  <depend>vda5050_action_handler</depend>
+  <depend>isaac_ros_vda5050_client</depend>
+  <depend>pluginlib</depend>
+  <depend>isaac_manipulator_interfaces</depend>
+  <depend>isaac_ros_scene_recorder_interface</depend>
+
+  <test_depend>ament_lint_auto</test_depend>
+  <test_depend>ament_lint_common</test_depend>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+    <vda5050_action_handler plugin="${prefix}/plugins.xml"/>
+  </export>
+</package>

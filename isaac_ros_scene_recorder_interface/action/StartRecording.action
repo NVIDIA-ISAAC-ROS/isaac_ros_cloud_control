@@ -1,0 +1,7 @@
+string path
+string[] topics
+int32 time
+---
+bool success
+string result_description
+---
