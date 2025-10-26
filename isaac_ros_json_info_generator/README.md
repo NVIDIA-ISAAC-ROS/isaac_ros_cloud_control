@@ -2,7 +2,7 @@
 
 ## Overview
 
-The `isaac_ros_json_info_generator` package has the `JsonInfoGeneratorNode` that collects data/messages from an arbitrary number of topics (of any defined ROS message type). It converts the collected messages into a JSON string, stores that string in a `std_msgs/String`, and publishes that ROS 2 string to `/info`, where the mission client (i.e. `isaac_ros_vda5050_nav2_client`) will collect and then relay that information to the mission dispatcher. The node also subscribes to the topic `/order_id` (`std_msgs/String`) and stores that as the current `order_id`; if the new `order_id` value is different from the one stored, it will clear the messages it collected and start collecting messages again.
+The `isaac_ros_json_info_generator` package has the `JsonInfoGeneratorNode` that collects data/messages from an arbitrary number of topics (of any defined ROS message type). It converts the collected messages into a JSON string, stores that string in a `std_msgs/String`, and publishes that ROS 2 string to `/info`, where the mission client (i.e. `isaac_ros_vda5050_client`) will collect and then relay that information to the mission dispatcher. The node also subscribes to the topic `/order_id` (`std_msgs/String`) and stores that as the current `order_id`; if the new `order_id` value is different from the one stored, it will clear the messages it collected and start collecting messages again.
 
 ## Launch Scripts
 

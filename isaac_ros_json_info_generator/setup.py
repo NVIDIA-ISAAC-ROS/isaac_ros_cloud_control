@@ -61,7 +61,11 @@ setup(
     maintainer_email='isaac-ros-maintainers@nvidia.com',
     description='VDA5050 mission client for Nav2',
     license='Apache-2.0',
-    tests_require=['pytest'],
+    extras_require={
+        'test': [
+            'pytest'
+        ]
+    },
     entry_points={
         'console_scripts': [
             'json_info_generator_node = isaac_ros_json_info_generator.JsonInfoGeneratorNode:main'

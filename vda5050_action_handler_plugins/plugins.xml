@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!--
+ SPDX-FileCopyrightText: Copyright (c) 2025 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+ http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+
+ SPDX-License-Identifier: Apache-2.0
+-->
+
+<library path="vda5050_action_handler_plugins">
+  <class type="isaac_ros::mission_client::ExampleActionHandler" base_class_type="isaac_ros::mission_client::Vda5050ActionHandlerBase">
+    <description>This is an example action handler plugin.</description>
+  </class>
+  <class type="isaac_ros::mission_client::DockingHandler" base_class_type="isaac_ros::mission_client::Vda5050ActionHandlerBase">
+    <description>This is a docking action handler plugin.</description>
+  </class>
+  <class type="isaac_ros::mission_client::PickAndPlaceHandler" base_class_type="isaac_ros::mission_client::Vda5050ActionHandlerBase">
+    <description>This is a pick and place action handler plugin.</description>
+  </class>
+  <class type="isaac_ros::mission_client::SceneRecorderHandler" base_class_type="isaac_ros::mission_client::Vda5050ActionHandlerBase">
+    <description>This is a scene recorder action handler plugin.</description>
+  </class>
+</library>

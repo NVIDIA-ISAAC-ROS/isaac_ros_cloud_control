@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>isaac_ros_vda5050_client</name>
+  <version>4.0.0</version>
+  <description>Mission client communicating with Navigation2</description>
+  <maintainer email="isaac-ros-maintainers@nvidia.com">Isaac ROS Maintainers</maintainer>
+  <license>Apache-2.0</license>
+
+  <buildtool_depend>ament_cmake_auto</buildtool_depend>
+
+  <depend>std_msgs</depend>
+  <depend>nav_msgs</depend>
+  <depend>nav2_msgs</depend>
+  <depend>vda5050_msgs</depend>
+  <depend>rclcpp</depend>
+  <depend>rclcpp_action</depend>
+  <depend>rclcpp_components</depend>
+  <depend>sensor_msgs</depend>
+  <depend>geometry_msgs</depend>
+  <depend>tf2_geometry_msgs</depend>
+  <depend>isaac_ros_mqtt_bridge</depend>
+  <depend>isaac_ros_json_info_generator</depend>
+  <depend>action_msgs</depend>
+  <depend>std_srvs</depend>
+  <depend>lifecycle_msgs</depend>
+  <depend>vda5050_action_handler</depend>
+  <depend>pluginlib</depend>
+  <depend>isaac_ros_common</depend>
+
+  <test_depend>ament_lint_auto</test_depend>
+  <test_depend>ament_lint_common</test_depend>
+  <test_depend>isaac_ros_test</test_depend>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>

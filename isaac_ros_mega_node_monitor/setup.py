@@ -41,7 +41,11 @@ setup(
     maintainer_email='yuzho@nvidia.com',
     description='ROS2 service to monitor node status',
     license='Apache-2.0',
-    tests_require=['pytest'],
+    extras_require={
+        'test': [
+            'pytest'
+        ]
+    },
     entry_points={
         'console_scripts': [
             'isaac_ros_mega_node_monitor = \

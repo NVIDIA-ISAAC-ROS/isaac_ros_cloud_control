@@ -57,7 +57,11 @@ setup(
     maintainer_email='isaac-ros-maintainers@nvidia.com',
     description='ROS scene recorder',
     license='Apache-2.0',
-    tests_require=['pytest'],
+    extras_require={
+        'test': [
+            'pytest'
+        ]
+    },
     entry_points={
         'console_scripts': [
             'scene_recorder = isaac_ros_scene_recorder.isaac_ros_scene_recorder:main'

@@ -20,23 +20,20 @@
 """Node to record a ROS bag with action.
 
 Example call:
-ROS 2 action send_goal recorder isaac_ros_vda5050_nav2_client/action/MissionAction \
-"{keys: [], values: ['start_recording', 'data/bag_name', '/msg1 /msg2', '30']}"
-ROS 2 action send_goal recorder isaac_ros_vda5050_nav2_client/action/MissionAction \
-"{values: ['stop_recording']}"
+ROS 2 action send_goal recorder isaac_ros_scene_recorder_interface/action/StartRecording \
+"{'path': 'data/bag_name', 'topics': '/msg1 /msg2', 'time': 30}"
+ROS 2 action send_goal recorder isaac_ros_scene_recorder_interface/action/StopRecording \
+"{}"
+
 Remap the action when starting the node:
 ROS 2 run isaac_ros_scene_recorder scene_recorder --ros-args --remap recorder:=new_action_name
 """
 import os
-
 import subprocess
-
 import threading
 
-from isaac_ros_vda5050_nav2_client.action import MissionAction
-
+from isaac_ros_scene_recorder_interface.action import StartRecording, StopRecording
 import psutil
-
 import rclpy
 from rclpy.action import ActionServer
 from rclpy.node import Node
@@ -60,11 +57,16 @@ class RecorderActionServer(Node):
 
     def __init__(self):
         super().__init__('recorder_action_server')
-        self._action_server = ActionServer(
+        self._start_recording_action_server = ActionServer(
             self,
-            MissionAction,
-            'recorder',
-            self.recorder_action_callback)
+            StartRecording,
+            'start_recording',
+            self.start_recording_action_callback)
+        self._stop_recording_action_server = ActionServer(
+            self,
+            StopRecording,
+            'stop_recording',
+            self.stop_recording_action_callback)
         self.recording = False
         self.process_pid = None
         self.recording_feedback = ''
@@ -74,8 +76,8 @@ class RecorderActionServer(Node):
 
     def start_recording(self, rosbag_command):
         if self.recording:
-            self.stop_recording()
-            self.get_logger().info('ROS scene recorder has already started. Cancel now.')
+            self.get_logger().info('ROS scene recorder has already started.')
+            return
         process = subprocess.Popen(rosbag_command)
         self.process_pid = process.pid
         self.recording = True
@@ -92,28 +94,33 @@ class RecorderActionServer(Node):
             self.get_logger().info(self.recording_feedback)
             self.process_pid = None
         self.recording = False
-        if self.stop_recording_timer.is_alive():
+        if self.stop_recording_timer and self.stop_recording_timer.is_alive():
             self.stop_recording_timer.cancel()
 
-    def recorder_action_callback(self, goal_handle):
+    def start_recording_action_callback(self, goal_handle):
         self.get_logger().info('Executing ROS scene recorder service call ...')
         # Keys: action_type, action_id, path, topics, time_out
-        result = MissionAction.Result()
-        params = dict(zip(goal_handle.request.keys, goal_handle.request.values))
-        if params['action_type'] == 'start_recording':
-            path = params['path']
-            if os.path.exists(path):
-                self.get_logger().warn(f'Output folder {path} already exists.')
-                goal_handle.succeed()
-                result.success = False
-                result.result_description = 'Output folder path already exists.'
-                return result
-            rosbag_command = self.ros_CLI[:] + [params['path']]
-            rosbag_command.extend(params['topics'].split())
-            self.time_out = int(params['time'])
-            self.start_recording(rosbag_command)
-        elif params['action_type'] == 'stop_recording':
-            self.stop_recording()
+        result = StartRecording.Result()
+        path = goal_handle.request.path
+        if os.path.exists(path):
+            self.get_logger().warn(f'Output folder {path} already exists.')
+            goal_handle.succeed()
+            result.success = False
+            result.result_description = 'Output folder path already exists.'
+            return result
+        rosbag_command = self.ros_CLI[:] + [path]
+        rosbag_command.extend(goal_handle.request.topics)
+        self.time_out = int(goal_handle.request.time)
+        self.start_recording(rosbag_command)
+        goal_handle.succeed()
+        result.success = True
+        result.result_description = self.recording_feedback
+        return result
+
+    def stop_recording_action_callback(self, goal_handle):
+        self.get_logger().info('Executing ROS scene recorder service call ...')
+        result = StopRecording.Result()
+        self.stop_recording()
         goal_handle.succeed()
         result.success = True
         result.result_description = self.recording_feedback
