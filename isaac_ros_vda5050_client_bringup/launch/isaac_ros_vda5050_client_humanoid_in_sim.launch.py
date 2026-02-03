@@ -71,7 +71,7 @@ def generate_launch_description():
             default_value=os.path.join(
                 get_package_share_directory(
                     'isaac_ros_vda5050_client_bringup'),
-                'config', 'carter_navigation_params.yaml'
+                'config', 'humanoid_navigation.yaml'
             ),
             description='Full path to navigation param file to load'),
         DeclareLaunchArgument(
@@ -169,7 +169,7 @@ def generate_launch_description():
 
     nav2_bringup_launch = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
-            [nav2_bringup_launch_dir, '/bringup_launch.py']),
+            [mission_client_launch_dir, '/navigation.launch.py']),
         launch_arguments={
             'namespace': namespace,
             'use_namespace': use_namespace,

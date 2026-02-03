@@ -38,7 +38,7 @@ class ConnectionMessage:
         self.headerId = ConnectionMessage.counter
         ConnectionMessage.counter += 1
         self.timestamp = datetime.datetime.now().isoformat()
-        self.version = '2.0.0'
+        self.version = '2.1.0'
         self.manufacturer = manufacturer
         self.serialNumber = serialNumber
         self.connectionState = connectionState.name

@@ -318,13 +318,19 @@ class Nav2ClientTest(IsaacROSBaseTest):
                         action_status='FINISHED')
         ]
         order_pub.publish(teleop_order)
-        rclpy.spin_once(self.node, timeout_sec=(0.1))
+        end_time = time.time() + TIMEOUT
+        while time.time() < end_time:
+            rclpy.spin_once(self.node, timeout_sec=(0.1))
+            if len(received_messages[ORDER_INFO_TOPIC]) > 0 and \
+                    received_messages[ORDER_INFO_TOPIC][-1].order_id == order_id:
+                self.node.get_logger().info(f'Order {order_id} is running')
+                break
         instant_order_pub.publish(start_teleop_instant_order)
         end_time = time.time() + TIMEOUT
         i = 0
         while time.time() < end_time:
             # Simulate teleop
-            if i == 3:
+            if i == 10:
                 instant_order_pub.publish(stop_teleop_instant_order)
             rclpy.spin_once(self.node, timeout_sec=(0.1))
             if self.is_order_completed(received_messages, '1') and \

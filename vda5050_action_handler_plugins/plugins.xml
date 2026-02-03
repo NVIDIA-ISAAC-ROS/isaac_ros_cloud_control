@@ -30,4 +30,10 @@
   <class type="isaac_ros::mission_client::SceneRecorderHandler" base_class_type="isaac_ros::mission_client::Vda5050ActionHandlerBase">
     <description>This is a scene recorder action handler plugin.</description>
   </class>
+  <class type="isaac_ros::mission_client::AprilTagHandler" base_class_type="isaac_ros::mission_client::Vda5050ActionHandlerBase">
+    <description>This is an AprilTag detection action handler plugin.</description>
+  </class>
+  <class type="isaac_ros::mission_client::MapHandler" base_class_type="isaac_ros::mission_client::Vda5050ActionHandlerBase">
+    <description>Map enable handler for VDA5050 (enableMap).</description>
+  </class>
 </library>

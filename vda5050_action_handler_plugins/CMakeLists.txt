@@ -26,18 +26,11 @@ endif()
 find_package(ament_cmake REQUIRED)
 find_package(ament_cmake_ros REQUIRED)
 find_package(ament_cmake_auto REQUIRED)
-find_package(rclcpp REQUIRED)
 find_package(rcl REQUIRED)
-find_package(rcl_action REQUIRED)
 
-find_package(vda5050_action_handler REQUIRED)
-find_package(pluginlib REQUIRED)
-find_package(isaac_ros_vda5050_client REQUIRED)
-find_package(vda5050_msgs REQUIRED)
 find_package(yaml-cpp REQUIRED)
-find_package(std_srvs REQUIRED)
-find_package(isaac_manipulator_interfaces REQUIRED)
 find_package(nlohmann_json REQUIRED)
+find_package(CURL REQUIRED)
 ament_auto_find_build_dependencies()
 
 include_directories(
@@ -53,18 +46,27 @@ set(dependencies
   std_srvs
   isaac_manipulator_interfaces
   isaac_ros_scene_recorder_interface
+  isaac_ros_apriltag_interfaces
+  tf2_ros
+  tf2_geometry_msgs
+  geometry_msgs
 )
 
 add_library(vda5050_action_handler_plugins
   src/docking_handler.cpp
   src/pick_and_place_handler.cpp
   src/scene_recorder_handler.cpp
+  src/apriltag_handler.cpp
+  src/map_handler.cpp
 )
 
 target_link_libraries(vda5050_action_handler_plugins
   yaml-cpp
   nlohmann_json
 )
+
+target_compile_definitions(vda5050_action_handler_plugins PUBLIC USE_LIBCURL)
+target_link_libraries(vda5050_action_handler_plugins CURL::libcurl)
 
 target_compile_definitions(vda5050_action_handler_plugins PUBLIC "PLUGINLIB__DISABLE_BOOST_FUNCTIONS")
 

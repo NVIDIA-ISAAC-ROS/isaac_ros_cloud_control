@@ -65,6 +65,7 @@ Vda5050ClientNode::Vda5050ClientNode(const rclcpp::NodeOptions & options)
     declare_parameter<std::string>("status_check_service", "")),
   config_file_(declare_parameter<std::string>(
     "config_file", "config/client_config.yaml")),
+  base_frame_(declare_parameter<std::string>("base_frame", "base_link")),
   order_sub_(create_subscription<vda5050_msgs::msg::Order>(
       "client_commands", kDefaultQoS,
       std::bind(&Vda5050ClientNode::OrderCallback, this,
@@ -258,7 +259,7 @@ void Vda5050ClientNode::ExecuteOrderCallback()
     try {
       // Find the latest map_T_base_link transform
       geometry_msgs::msg::TransformStamped t = tf_buffer_->lookupTransform(
-        "map", "base_link",
+        "map", base_frame_.c_str(),
         tf2::TimePointZero);
       agv_state_->agv_position.x = t.transform.translation.x;
       agv_state_->agv_position.y = t.transform.translation.y;
