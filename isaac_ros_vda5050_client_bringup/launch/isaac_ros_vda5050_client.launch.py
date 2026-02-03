@@ -21,9 +21,9 @@ from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
 from launch.actions import DeclareLaunchArgument, IncludeLaunchDescription
 from launch.conditions import IfCondition
+from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.substitutions import LaunchConfiguration
 from launch_ros.actions import Node
-from launch_xml.launch_description_sources import XMLLaunchDescriptionSource
 
 
 def generate_launch_description():
@@ -74,16 +74,21 @@ def generate_launch_description():
                                           'HUMANOID]'),
         DeclareLaunchArgument('battery_state_topic', default_value='/chassis/battery_state',
                               description='The topic that publishes battery state message.'),
-        DeclareLaunchArgument('launch_ws_bridge', default_value='False',
-                              description='Launch rosbridge websocket if set to True.'),
-        DeclareLaunchArgument('status_check_service', default_value='/velocity_smoother/get_state',
+        DeclareLaunchArgument('base_frame', default_value='base_link',
+                              description='Robot base frame used for TF lookup'),
+        # Use namespaced-relative service so it resolves under the provided namespace
+        DeclareLaunchArgument('status_check_service', default_value='velocity_smoother/get_state',
                               description='The service to check to verify NAV2 is ready'),
         DeclareLaunchArgument('config_file', default_value=os.path.join(
             get_package_share_directory(
                 'isaac_ros_vda5050_client_bringup'), 'config', 'vda5050_client_params.yaml'),
                 description='The path to the client config file'),
         DeclareLaunchArgument('log_level', default_value='info',
-                              description='The log level to use for the client node')
+                              description='The log level to use for the client node'),
+
+        # AprilTag enable flag
+        DeclareLaunchArgument('enable_apriltag_detection', default_value='false',
+                              description='Enable AprilTag detection'),
     ]
 
     namespace = LaunchConfiguration('namespace')
@@ -105,22 +110,33 @@ def generate_launch_description():
     odom_topic = LaunchConfiguration('odom_topic')
     robot_type = LaunchConfiguration('robot_type')
     battery_state_topic = LaunchConfiguration('battery_state_topic')
+    base_frame = LaunchConfiguration('base_frame')
     status_check_service = LaunchConfiguration('status_check_service')
     config_file = LaunchConfiguration('config_file')
     log_level = LaunchConfiguration('log_level')
+    enable_apriltag_detection = LaunchConfiguration('enable_apriltag_detection')
+
+    # Directories
+    mission_client_launch_dir = os.path.join(
+        get_package_share_directory('isaac_ros_vda5050_client_bringup'), 'launch')
+
     client_node = Node(
         namespace=namespace,
         name='vda5050_client_node',
         package='isaac_ros_vda5050_client',
         executable='vda5050_client',
-        parameters=[{
-            'update_feedback_period': 1.0,
-            'config_file': config_file,
-            'odom_topic': odom_topic,
-            'robot_type': robot_type,
-            'battery_state_topic': battery_state_topic,
-            'status_check_service': status_check_service
-        }],
+        remappings=[('/tf', 'tf'), ('/tf_static', 'tf_static')],
+        parameters=[
+            {
+                'config_file': config_file,
+                'update_feedback_period': 1.0,
+                'odom_topic': odom_topic,
+                'robot_type': robot_type,
+                'battery_state_topic': battery_state_topic,
+                'base_frame': base_frame,
+                'status_check_service': status_check_service
+            }
+        ],
         arguments=['--ros-args', '--log-level', ['vda5050_client_node:=', log_level]],
         output='screen'
     )
@@ -183,13 +199,14 @@ def generate_launch_description():
         condition=IfCondition(ros_recorder)
     )
 
-    rosbridge_server_launch_dir = os.path.join(
-        get_package_share_directory('rosbridge_server'), 'launch')
-    rosbridge_server_launch = IncludeLaunchDescription(
-        XMLLaunchDescriptionSource([rosbridge_server_launch_dir,
-                                    '/rosbridge_websocket_launch.xml']),
-        launch_arguments={'namespace': namespace}.items(),
-        condition=IfCondition(LaunchConfiguration('launch_ws_bridge'))
+    # AprilTag detection launch (conditional)
+    apriltag_detection_launch = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource([mission_client_launch_dir,
+                                       '/apriltag_detection.launch.py']),
+        launch_arguments={
+            'namespace': namespace,
+        }.items(),
+        condition=IfCondition(enable_apriltag_detection)
     )
 
     return LaunchDescription(launch_args +
@@ -198,5 +215,5 @@ def generate_launch_description():
                                  ros_mqtt_bridge_node,
                                  mqtt_ros_bridge_node,
                                  recorder_node,
-                                 rosbridge_server_launch
+                                 apriltag_detection_launch
                              ])

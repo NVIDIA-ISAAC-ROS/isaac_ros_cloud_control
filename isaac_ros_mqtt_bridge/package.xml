@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 
 <!--
- SPDX-FileCopyrightText: Copyright (c) 2021-2022 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+ SPDX-FileCopyrightText: Copyright (c) 2021-2025 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -21,7 +21,7 @@
 <?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
 <package format="3">
   <name>isaac_ros_mqtt_bridge</name>
-  <version>4.0.0</version>
+  <version>4.1.0</version>
   <description>MQTT Bridge</description>
   <maintainer email="isaac-ros-maintainers@nvidia.com">Isaac ROS Maintainers</maintainer>
   <license>Apache-2.0</license>
@@ -33,7 +33,10 @@
   <test_depend>python3-pytest</test_depend>
   <test_depend>isaac_ros_test</test_depend>
 
+  <depend>mosquitto</depend>
   <depend>vda5050_msgs</depend>
+  <depend>python3-paho-mqtt-pip-shim</depend>
+  <depend>rosbridge_library</depend>
 
   <export>
     <build_type>ament_python</build_type>

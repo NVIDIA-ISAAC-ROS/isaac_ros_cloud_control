@@ -95,7 +95,7 @@ class BaseMqttBridgeTest(IsaacROSBaseTest):
             self.node.destroy_publisher(string_pub)
             mqtt_receiver.loop_stop()
 
-    def base_test_mqtt_to_ros(self, transport):
+    def base_test_mqtt_to_ros(self, transport, port=1883):
         """
         Test for MqttToRos Bridge node.
 
@@ -116,7 +116,7 @@ class BaseMqttBridgeTest(IsaacROSBaseTest):
             print('Mqtt Connected')
 
         mqtt_transmitter.on_connect = on_mqtt_connect
-        mqtt_transmitter.connect('localhost')
+        mqtt_transmitter.connect('localhost', port)
         mqtt_transmitter.loop_start()
 
         subs = self.create_logging_subscribers(

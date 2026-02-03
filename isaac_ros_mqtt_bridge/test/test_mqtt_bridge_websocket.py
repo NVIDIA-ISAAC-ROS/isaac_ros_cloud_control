@@ -72,4 +72,4 @@ class MqttBridgeWebsocketTest(base_mqtt_bridge_test.BaseMqttBridgeTest):
         self.base_test_ros_to_mqtt('websockets', port=PORT)
 
     def test_mqtt_to_ros(self):
-        self.base_test_ros_to_mqtt('websockets', port=PORT)
+        self.base_test_mqtt_to_ros('websockets', port=PORT)

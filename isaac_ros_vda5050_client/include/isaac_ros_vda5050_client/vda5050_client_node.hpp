@@ -236,6 +236,7 @@ private:
   std::string robot_type_;
   std::string status_check_service_;
   std::string config_file_;
+  std::string base_frame_;
 
   // Subscribers
   rclcpp::Subscription<vda5050_msgs::msg::Order>::SharedPtr order_sub_;

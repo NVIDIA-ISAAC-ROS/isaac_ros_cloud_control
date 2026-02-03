@@ -2,7 +2,7 @@
 
 VDA5050-compatible mission controller
 
-<div align="center"><a class="reference internal image-reference" href="https://media.githubusercontent.com/media/NVIDIA-ISAAC-ROS/.github/release-4.0/resources/isaac_ros_docs/repositories_and_packages/isaac_ros_cloud_control/MD.png/"><img alt="image" src="https://media.githubusercontent.com/media/NVIDIA-ISAAC-ROS/.github/release-4.0/resources/isaac_ros_docs/repositories_and_packages/isaac_ros_cloud_control/MD.png/" width="800px"/></a></div>
+<div align="center"><a class="reference internal image-reference" href="https://media.githubusercontent.com/media/NVIDIA-ISAAC-ROS/.github/release-4.1/resources/isaac_ros_docs/repositories_and_packages/isaac_ros_cloud_control/MD.png/"><img alt="image" src="https://media.githubusercontent.com/media/NVIDIA-ISAAC-ROS/.github/release-4.1/resources/isaac_ros_docs/repositories_and_packages/isaac_ros_cloud_control/MD.png/" width="800px"/></a></div>
 
 ---
 
@@ -57,9 +57,9 @@ A Quickstart with Isaac Sim is [here](https://nvidia-isaac-ros.github.io/concept
 
 ## Latest
 
-Update 2025-10-24: Renamed repository to isaac_ros_cloud_control, added support for multi-object pick and place, refactored isaac_ros_mission_client to a plugin-based action architecture
+Update 2026-02-02: Support for two new Docker-optional development and deployment modes
 
 ## Contributors
 
-- Add velocities to the status message [(#10)]([https://github.com/NVIDIA-ISAAC-ROS/isaac_ros_mission_client/pull/10](https://github.com/NVIDIA-ISAAC-ROS/isaac_ros_mission_client/pull/10))
+- Add velocities to the status message [(#10)]([https://github.com/NVIDIA-ISAAC-ROS/isaac_ros_cloud_control/pull/10](https://github.com/NVIDIA-ISAAC-ROS/isaac_ros_cloud_control/pull/10))
   Contributors: [Burak Guler]([https://github.com/gulerburak](https://github.com/gulerburak))
