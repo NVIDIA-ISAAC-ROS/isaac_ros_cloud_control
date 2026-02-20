@@ -2,7 +2,7 @@
 
 VDA5050-compatible mission controller
 
-<div align="center"><a class="reference internal image-reference" href="https://media.githubusercontent.com/media/NVIDIA-ISAAC-ROS/.github/release-4.1/resources/isaac_ros_docs/repositories_and_packages/isaac_ros_cloud_control/MD.png/"><img alt="image" src="https://media.githubusercontent.com/media/NVIDIA-ISAAC-ROS/.github/release-4.1/resources/isaac_ros_docs/repositories_and_packages/isaac_ros_cloud_control/MD.png/" width="800px"/></a></div>
+<div align="center"><a class="reference internal image-reference" href="https://media.githubusercontent.com/media/NVIDIA-ISAAC-ROS/.github/release-4.2/resources/isaac_ros_docs/repositories_and_packages/isaac_ros_cloud_control/MD.png/"><img alt="image" src="https://media.githubusercontent.com/media/NVIDIA-ISAAC-ROS/.github/release-4.2/resources/isaac_ros_docs/repositories_and_packages/isaac_ros_cloud_control/MD.png/" width="800px"/></a></div>
 
 ---
 
@@ -57,7 +57,7 @@ A Quickstart with Isaac Sim is [here](https://nvidia-isaac-ros.github.io/concept
 
 ## Latest
 
-Update 2026-02-02: Support for two new Docker-optional development and deployment modes
+Update 2026-02-19: Support for JetPack 7.1
 
 ## Contributors
 
