@@ -44,7 +44,7 @@ set(dependencies
   vda5050_msgs
   isaac_ros_vda5050_client
   std_srvs
-  isaac_manipulator_interfaces
+  isaac_ros_manipulation_interfaces
   isaac_ros_scene_recorder_interface
   isaac_ros_apriltag_interfaces
   tf2_ros

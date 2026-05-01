@@ -35,34 +35,22 @@ def generate_test_description():
         mosquitto_conf.writelines(file_content)
     subprocess.Popen(['mosquitto', '-c', '/tmp/mosquitto_config.conf'])
 
-    mqtt_to_ros_node = Node(
-        name='mqtt_to_ros_node',
+    mqtt_ros_node = Node(
+        name='mqtt_ros_node',
         package='isaac_ros_mqtt_bridge',
         namespace=MqttBridgeWebsocketTest.generate_namespace(),
-        executable='mqtt_to_ros_bridge_node',
+        executable='mqtt_ros_bridge_node',
         parameters=[{
             'ros_publisher_type': 'std_msgs/String',
-            'mqtt_port': PORT,
-            'mqtt_transport': 'websockets'
-        }],
-        output='screen'
-    )
-
-    ros_to_mqtt_node = Node(
-        name='ros_to_mqtt_node',
-        package='isaac_ros_mqtt_bridge',
-        namespace=MqttBridgeWebsocketTest.generate_namespace(),
-        executable='ros_to_mqtt_bridge_node',
-        parameters=[{
             'ros_subscriber_type': 'std_msgs/String',
             'mqtt_port': PORT,
             'mqtt_transport': 'websockets'
         }],
-        remappings=[('ros_sub_topic', base_mqtt_bridge_test.TO_ROS_TOPIC)],
+        remappings=[('agv_state', base_mqtt_bridge_test.TO_ROS_TOPIC)],
         output='screen'
     )
 
-    return MqttBridgeWebsocketTest.generate_test_description([mqtt_to_ros_node, ros_to_mqtt_node])
+    return MqttBridgeWebsocketTest.generate_test_description([mqtt_ros_node])
 
 
 class MqttBridgeWebsocketTest(base_mqtt_bridge_test.BaseMqttBridgeTest):

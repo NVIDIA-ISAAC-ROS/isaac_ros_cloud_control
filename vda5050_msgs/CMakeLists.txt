@@ -64,6 +64,7 @@ set(msg_files
     "msg/Factsheet.msg"
     "msg/PhysicalParameters.msg"
     "msg/TypeSpecification.msg"
+    "msg/Visualization.msg"
 )
 
 find_package(rosidl_default_generators REQUIRED)

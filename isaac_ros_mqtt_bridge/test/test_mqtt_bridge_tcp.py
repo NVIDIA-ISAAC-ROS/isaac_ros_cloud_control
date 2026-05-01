@@ -29,30 +29,20 @@ import pytest
 @pytest.mark.rostest
 def generate_test_description():
     subprocess.Popen(['mosquitto'])
-    mqtt_to_ros_node = Node(
-        name='mqtt_to_ros_node',
+    mqtt_ros_node = Node(
+        name='mqtt_ros_node',
         package='isaac_ros_mqtt_bridge',
         namespace=MqttBridgeTcpTest.generate_namespace(),
-        executable='mqtt_to_ros_bridge_node',
+        executable='mqtt_ros_bridge_node',
         parameters=[{
-            'ros_publisher_type': 'std_msgs/String'
-        }],
-        output='screen'
-    )
-
-    ros_to_mqtt_node = Node(
-        name='ros_to_mqtt_node',
-        package='isaac_ros_mqtt_bridge',
-        namespace=MqttBridgeTcpTest.generate_namespace(),
-        executable='ros_to_mqtt_bridge_node',
-        parameters=[{
+            'ros_publisher_type': 'std_msgs/String',
             'ros_subscriber_type': 'std_msgs/String'
         }],
-        remappings=[('ros_sub_topic', base_mqtt_bridge_test.TO_ROS_TOPIC)],
+        remappings=[('agv_state', base_mqtt_bridge_test.TO_ROS_TOPIC)],
         output='screen'
     )
 
-    return MqttBridgeTcpTest.generate_test_description([mqtt_to_ros_node, ros_to_mqtt_node])
+    return MqttBridgeTcpTest.generate_test_description([mqtt_ros_node])
 
 
 class MqttBridgeTcpTest(base_mqtt_bridge_test.BaseMqttBridgeTest):

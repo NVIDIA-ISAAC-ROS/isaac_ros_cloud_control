@@ -64,8 +64,7 @@ setup(
     },
     entry_points={
         'console_scripts': [
-            'mqtt_to_ros_bridge_node = isaac_ros_mqtt_bridge.MqttToRosNode:main',
-            'ros_to_mqtt_bridge_node = isaac_ros_mqtt_bridge.RosToMqttNode:main'
+            'mqtt_ros_bridge_node = isaac_ros_mqtt_bridge.MqttRosBridgeNode:main'
         ],
     },
     cmdclass={

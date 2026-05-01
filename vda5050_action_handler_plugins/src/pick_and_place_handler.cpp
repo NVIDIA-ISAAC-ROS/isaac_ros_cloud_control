@@ -165,7 +165,8 @@ std::string getClassId(const std::vector<vision_msgs::msg::ObjectHypothesisWithP
   return class_id;
 }
 
-std::string jsonFromObjectInfo(const isaac_manipulator_interfaces::msg::ObjectInfo & object_info)
+std::string jsonFromObjectInfo(
+  const isaac_ros_manipulation_interfaces::msg::ObjectInfo & object_info)
 {
   std::ostringstream json_result;
   std::string detection_2d = jsonFromDetection2D(object_info.detection_2d);
