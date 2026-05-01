@@ -40,6 +40,18 @@ def generate_launch_description():
                               description='Username to authenticate to MQTT broker'),
         DeclareLaunchArgument('mqtt_password', default_value='',
                               description='Password to authenticate to MQTT broker'),
+        DeclareLaunchArgument('mqtt_tls_enabled', default_value='false',
+                              description='Enable TLS/SSL for MQTT connection'),
+        DeclareLaunchArgument('mqtt_ca_cert', default_value='',
+                              description='Path to CA certificate file for MQTT TLS'),
+        DeclareLaunchArgument('mqtt_client_cert', default_value='',
+                              description='Path to client certificate file for MQTT TLS'),
+        DeclareLaunchArgument('mqtt_client_key', default_value='',
+                              description='Path to client private key file for MQTT TLS'),
+        DeclareLaunchArgument('mqtt_tls_insecure', default_value='false',
+                              description='Allow insecure TLS connections'),
+        DeclareLaunchArgument('mqtt_tls_version', default_value='tlsv1.2',
+                              description='TLS version to use'),
         DeclareLaunchArgument('interface_name', default_value='uagv',
                               description='Name of the used interface. Used to construct mqtt '
                                           'topic names.'),
@@ -141,10 +153,10 @@ def generate_launch_description():
         output='screen'
     )
 
-    ros_mqtt_bridge_node = Node(
-        name='ros_mqtt_bridge_node',
+    mqtt_ros_bridge_node = Node(
+        name='mqtt_ros_bridge_node',
         package='isaac_ros_mqtt_bridge',
-        executable='ros_to_mqtt_bridge_node',
+        executable='mqtt_ros_bridge_node',
         parameters=[{
             'mqtt_host_name': mqtt_host_name,
             'mqtt_transport': mqtt_transport,
@@ -155,37 +167,19 @@ def generate_launch_description():
             'manufacturer': manufacturer,
             'serial_number': serial_number,
             'ros_subscriber_type': ros_subscriber_type,
-            'mqtt_port': mqtt_port,
-            'retry_forever': retry_forever,
-            'reconnect_period': reconnect_period,
-            'num_retries': num_retries
-        }],
-        namespace=namespace,
-        remappings=[('ros_sub_topic', 'agv_state')],
-        output='screen'
-    )
-
-    mqtt_ros_bridge_node = Node(
-        name='mqtt_ros_bridge_node',
-        package='isaac_ros_mqtt_bridge',
-        executable='mqtt_to_ros_bridge_node',
-        parameters=[{
-            'mqtt_host_name': mqtt_host_name,
-            'mqtt_transport': mqtt_transport,
-            'mqtt_username': mqtt_username,
-            'mqtt_password': mqtt_password,
-            'interface_name': interface_name,
-            'major_version': major_version,
-            'manufacturer': manufacturer,
-            'serial_number': serial_number,
             'ros_publisher_type': ros_publisher_type,
             'mqtt_port': mqtt_port,
             'retry_forever': retry_forever,
             'reconnect_period': reconnect_period,
-            'num_retries': num_retries
+            'num_retries': num_retries,
+            'mqtt_tls_enabled': LaunchConfiguration('mqtt_tls_enabled'),
+            'mqtt_ca_cert': LaunchConfiguration('mqtt_ca_cert'),
+            'mqtt_client_cert': LaunchConfiguration('mqtt_client_cert'),
+            'mqtt_client_key': LaunchConfiguration('mqtt_client_key'),
+            'mqtt_tls_insecure': LaunchConfiguration('mqtt_tls_insecure'),
+            'mqtt_tls_version': LaunchConfiguration('mqtt_tls_version'),
         }],
         namespace=namespace,
-        remappings=[('bridge_pub_topic', 'client_commands')],
         output='screen'
     )
 
@@ -212,7 +206,6 @@ def generate_launch_description():
     return LaunchDescription(launch_args +
                              [
                                  client_node,
-                                 ros_mqtt_bridge_node,
                                  mqtt_ros_bridge_node,
                                  recorder_node,
                                  apriltag_detection_launch

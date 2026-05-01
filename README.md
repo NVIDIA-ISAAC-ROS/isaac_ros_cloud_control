@@ -2,7 +2,7 @@
 
 VDA5050-compatible mission controller
 
-<div align="center"><a class="reference internal image-reference" href="https://media.githubusercontent.com/media/NVIDIA-ISAAC-ROS/.github/release-4.3/resources/isaac_ros_docs/repositories_and_packages/isaac_ros_cloud_control/MD.png/"><img alt="image" src="https://media.githubusercontent.com/media/NVIDIA-ISAAC-ROS/.github/release-4.3/resources/isaac_ros_docs/repositories_and_packages/isaac_ros_cloud_control/MD.png/" width="800px"/></a></div>
+<div align="center"><a class="reference internal image-reference" href="https://media.githubusercontent.com/media/NVIDIA-ISAAC-ROS/.github/release-4.4/resources/isaac_ros_docs/repositories_and_packages/isaac_ros_cloud_control/MD.png/"><img alt="image" src="https://media.githubusercontent.com/media/NVIDIA-ISAAC-ROS/.github/release-4.4/resources/isaac_ros_docs/repositories_and_packages/isaac_ros_cloud_control/MD.png/" width="800px"/></a></div>
 
 ---
 
@@ -63,7 +63,7 @@ MCP tutorials in Cursor:
 
 ## Latest
 
-Update 2026-03-23: Introduced early-stage support for SIPL camera framework and LI Eagle stereo CoE/HSB camera with ROS
+Update 2026-04-30: Compatibility and integration updates for the Isaac ROS 4.4.0 release
 
 ## Contributors
 

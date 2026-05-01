@@ -19,11 +19,11 @@
 #define VDA5050_ACTION_HANDLER_PLUGINS__PICK_AND_PLACE_HANDLER_HPP_
 
 #include "vda5050_action_handler/vda5050_action_handler.hpp"
-#include "isaac_manipulator_interfaces/action/get_objects.hpp"
-#include "isaac_manipulator_interfaces/action/pick_and_place.hpp"
-#include "isaac_manipulator_interfaces/msg/object_info.hpp"
-#include "isaac_manipulator_interfaces/srv/clear_objects.hpp"
-#include "isaac_manipulator_interfaces/action/multi_object_pick_and_place.hpp"
+#include "isaac_ros_manipulation_interfaces/action/get_objects.hpp"
+#include "isaac_ros_manipulation_interfaces/action/pick_and_place.hpp"
+#include "isaac_ros_manipulation_interfaces/msg/object_info.hpp"
+#include "isaac_ros_manipulation_interfaces/srv/clear_objects.hpp"
+#include "isaac_ros_manipulation_interfaces/action/multi_object_pick_and_place.hpp"
 #include "rclcpp_action/rclcpp_action.hpp"
 #include "rclcpp/rclcpp.hpp"
 
@@ -35,19 +35,19 @@ class PickAndPlaceHandler : public Vda5050ActionHandlerBase
 {
 public:
   using GetObjectsAction =
-    isaac_manipulator_interfaces::action::GetObjects;
+    isaac_ros_manipulation_interfaces::action::GetObjects;
   using GoalHandleGetObjectsAction = rclcpp_action::ClientGoalHandle<GetObjectsAction>;
 
   using PickPlaceAction =
-    isaac_manipulator_interfaces::action::PickAndPlace;
+    isaac_ros_manipulation_interfaces::action::PickAndPlace;
   using GoalHandlePickPlaceAction = rclcpp_action::ClientGoalHandle<PickPlaceAction>;
 
   using MultiObjectPickAndPlaceAction =
-    isaac_manipulator_interfaces::action::MultiObjectPickAndPlace;
+    isaac_ros_manipulation_interfaces::action::MultiObjectPickAndPlace;
   using GoalHandleMultiObjectPickAndPlaceAction =
     rclcpp_action::ClientGoalHandle<MultiObjectPickAndPlaceAction>;
 
-  using ClearObjectsService = isaac_manipulator_interfaces::srv::ClearObjects;
+  using ClearObjectsService = isaac_ros_manipulation_interfaces::srv::ClearObjects;
 
   void Initialize(
     Vda5050ClientNode * client_node,

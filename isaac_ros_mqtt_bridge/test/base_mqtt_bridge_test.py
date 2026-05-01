@@ -30,7 +30,7 @@ from std_msgs.msg import String
 
 FROM_MQTT_TOPIC = 'uagv/v2/RobotCompany/carter01/state'
 TO_MQTT_TOPIC = 'uagv/v2/RobotCompany/carter01/order'
-FROM_ROS_TOPIC = 'bridge_pub_topic'
+FROM_ROS_TOPIC = 'client_commands'
 TO_ROS_TOPIC = 'to_ros_topic'
 
 
