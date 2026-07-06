@@ -15,9 +15,9 @@
 //
 // SPDX-License-Identifier: Apache-2.0
 
-#include <sstream>
-#include <iomanip>
 #include <algorithm>
+#include <iomanip>
+#include <sstream>
 
 #include "vda5050_action_handler_plugins/apriltag_handler.hpp"
 #include "isaac_ros_vda5050_client/vda5050_client_node.hpp"
@@ -92,7 +92,8 @@ void AprilTagHandler::executeGetAprilTags(const vda5050_msgs::msg::Action & vda5
   client_node_->UpdateActionState(vda5050_action, vda5050_msgs::msg::ActionState::RUNNING);
 
   RCLCPP_INFO(rclcpp::get_logger("AprilTagHandler"),
-    "Starting AprilTag collection buffer (%.1fs) with action timeout (%.1fs) - will collect all unique tag IDs",
+    "Starting AprilTag collection buffer (%.1fs) with action timeout (%.1fs)"
+    " - will collect all unique tag IDs",
     apriltag_detection_buffer_time_, apriltag_action_timeout_);
 
   {
@@ -113,7 +114,6 @@ void AprilTagHandler::executeGetAprilTags(const vda5050_msgs::msg::Action & vda5
       apriltag_detection_buffer_time_ &&
       latest_apriltag_detections_->detections.size() > 0)
     {
-
       RCLCPP_INFO(rclcpp::get_logger("AprilTagHandler"),
             "Seeding collection with %zu cached detections",
         latest_apriltag_detections_->detections.size());
@@ -162,7 +162,8 @@ void AprilTagHandler::aprilTagDetectionCallback(
     last_apriltag_detection_time_ = client_node_->now();
   }
 
-  // Debug logging for AprilTag detections (only when verbose mode is enabled AND actively collecting)
+  // Debug logging for AprilTag detections (only when verbose mode is enabled
+  // AND actively collecting)
   bool is_actively_collecting = false;
   {
     std::lock_guard<std::mutex> collection_lock(apriltag_collection_mutex_);
@@ -292,7 +293,8 @@ void AprilTagHandler::finalizeAprilTagCollection()
   try {
     if (unique_tag_count > 0) {
       // Create detection array from unique collection
-      auto unique_detections = std::make_shared<isaac_ros_apriltag_interfaces::msg::AprilTagDetectionArray>();
+      auto unique_detections =
+        std::make_shared<isaac_ros_apriltag_interfaces::msg::AprilTagDetectionArray>();
       unique_detections->header.stamp = client_node_->now();
 
       // Use the frame_id from the first detection (they should all be the same camera frame)
@@ -557,7 +559,6 @@ bool AprilTagHandler::transformPoseToTargetFrame(
     }
 
     return true;
-
   } catch (const tf2::TransformException & ex) {
     RCLCPP_ERROR(rclcpp::get_logger("AprilTagHandler"),
                 "TF2 transform exception when transforming from '%s' to '%s': %s",

@@ -15,12 +15,13 @@
 //
 // SPDX-License-Identifier: Apache-2.0
 
+#include <sys/wait.h>
+#include <unistd.h>
+
 #include <algorithm>
 #include <ctime>
 #include <filesystem>
 #include <fstream>
-#include <unistd.h>
-#include <sys/wait.h>
 #include <string>
 #include <vector>
 
@@ -205,7 +206,7 @@ void MapHandler::ExecuteDownloadMap(const vda5050_msgs::msg::Action & vda5050_ac
   }
 
   // Prepare target directory
-  const auto ts = std::to_string(static_cast<long long>(std::time(nullptr)));
+  const auto ts = std::to_string(static_cast<int64_t>(std::time(nullptr)));
   const std::string version =
     map_version.empty() ? std::string(kDefaultVersionPrefix) : map_version;
   fs::create_directories(map_storage_root_);
@@ -354,16 +355,13 @@ void MapHandler::ExecuteEnableMap(const vda5050_msgs::msg::Action & vda5050_acti
 
   // Trigger AMCL global localization (prefer reinitialize if available)
   try {
-    if (amcl_reinitialize_global_localization_client_->wait_for_service(std::chrono::seconds(
-          kAmclWaitSec)))
-    {
-      auto req = std::make_shared<std_srvs::srv::Empty::Request>();
-      amcl_reinitialize_global_localization_client_->async_send_request(req);
-    } else if (amcl_global_localization_client_->wait_for_service(std::chrono::seconds(
-          kAmclWaitSec)))
-    {
-      auto req = std::make_shared<std_srvs::srv::Empty::Request>();
-      amcl_global_localization_client_->async_send_request(req);
+    const auto amcl_timeout = std::chrono::seconds(kAmclWaitSec);
+    if (amcl_reinitialize_global_localization_client_->wait_for_service(amcl_timeout)) {
+      amcl_reinitialize_global_localization_client_->async_send_request(
+        std::make_shared<std_srvs::srv::Empty::Request>());
+    } else if (amcl_global_localization_client_->wait_for_service(amcl_timeout)) {
+      amcl_global_localization_client_->async_send_request(
+        std::make_shared<std_srvs::srv::Empty::Request>());
     }
   } catch (...) {
   }

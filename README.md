@@ -2,7 +2,7 @@
 
 VDA5050-compatible mission controller
 
-<div align="center"><a class="reference internal image-reference" href="https://media.githubusercontent.com/media/NVIDIA-ISAAC-ROS/.github/release-4.4/resources/isaac_ros_docs/repositories_and_packages/isaac_ros_cloud_control/MD.png/"><img alt="image" src="https://media.githubusercontent.com/media/NVIDIA-ISAAC-ROS/.github/release-4.4/resources/isaac_ros_docs/repositories_and_packages/isaac_ros_cloud_control/MD.png/" width="800px"/></a></div>
+<div align="center"><a class="reference internal image-reference" href="https://media.githubusercontent.com/media/NVIDIA-ISAAC-ROS/.github/release-4.5/resources/isaac_ros_docs/repositories_and_packages/isaac_ros_cloud_control/MD.png/"><img alt="image" src="https://media.githubusercontent.com/media/NVIDIA-ISAAC-ROS/.github/release-4.5/resources/isaac_ros_docs/repositories_and_packages/isaac_ros_cloud_control/MD.png/" width="800px"/></a></div>
 
 ---
 
@@ -54,12 +54,12 @@ Please visit the [Isaac ROS Documentation](https://nvidia-isaac-ros.github.io/re
 
 ## Quickstart
 
-A Quickstart with Isaac Sim is [here](https://nvidia-isaac-ros.github.io/concepts/cloud_control/isaac_ros_mission_client.html).
+A Quickstart with Isaac Sim is [here](https://nvidia-isaac-ros.github.io/repositories_and_packages/isaac_ros_cloud_control/isaac_ros_mission_client/isaac_ros_mission_client.html).
 
 MCP tutorials in Cursor:
 
-- [Mission Control MCP in Cursor](https://nvidia-isaac-ros.github.io/concepts/cloud_control/tutorial_isaac_cloud_mcp_mission_control.html)
-- [Mission Dispatch MCP in Cursor](https://nvidia-isaac-ros.github.io/concepts/cloud_control/tutorial_isaac_cloud_mcp_mission_dispatch.html)
+- [Mission Control MCP in Cursor](https://nvidia-isaac-ros.github.io/repositories_and_packages/isaac_ros_cloud_control/isaac_ros_mission_client/tutorial_isaac_cloud_mcp_mission_control.html)
+- [Mission Dispatch MCP in Cursor](https://nvidia-isaac-ros.github.io/repositories_and_packages/isaac_ros_cloud_control/isaac_ros_mission_client/tutorial_isaac_cloud_mcp_mission_dispatch.html)
 
 ## Latest
 

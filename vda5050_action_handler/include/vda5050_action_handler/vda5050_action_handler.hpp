@@ -15,8 +15,10 @@
 //
 // SPDX-License-Identifier: Apache-2.0
 
-#ifndef VDA5050_ACTION_HANDLER_HPP
-#define VDA5050_ACTION_HANDLER_HPP
+#ifndef VDA5050_ACTION_HANDLER__VDA5050_ACTION_HANDLER_HPP_
+#define VDA5050_ACTION_HANDLER__VDA5050_ACTION_HANDLER_HPP_
+
+#include <string>
 
 #include "vda5050_msgs/msg/action.hpp"
 #include "yaml-cpp/yaml.h"
@@ -28,7 +30,6 @@ namespace mission_client
 class Vda5050ClientNode;
 class Vda5050ActionHandlerBase
 {
-
 public:
   virtual void Initialize(
     Vda5050ClientNode * client_node,
@@ -54,9 +55,8 @@ public:
 protected:
   Vda5050ActionHandlerBase() {}
   Vda5050ClientNode * client_node_;
-
 };
 }  // namespace mission_client
 }  // namespace isaac_ros
 
-#endif  // VDA5050_ACTION_HANDLER_HPP
+#endif  // VDA5050_ACTION_HANDLER__VDA5050_ACTION_HANDLER_HPP_

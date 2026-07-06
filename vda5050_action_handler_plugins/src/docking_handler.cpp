@@ -320,8 +320,8 @@ void DockingHandler::ExecuteUndock(const vda5050_msgs::msg::Action & vda5050_act
   }
 }
 
-}
-}
+}  // namespace mission_client
+}  // namespace isaac_ros
 
 #include <pluginlib/class_list_macros.hpp>
 
