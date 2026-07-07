@@ -45,7 +45,7 @@ constexpr char kClassIds[] = "class_ids";
 constexpr char kTargetPoses[] = "target_poses";
 constexpr char kMultiBin[] = "MULTI_BIN";
 constexpr char kSingleBin[] = "SINGLE_BIN";
-}
+}  // namespace
 
 void PickAndPlaceHandler::Initialize(
   Vda5050ClientNode * client_node,

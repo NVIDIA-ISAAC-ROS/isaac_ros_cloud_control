@@ -9,11 +9,11 @@ The Isaac ROS Mega Node Monitor provides a ROS 2 service to monitor the status o
 
 ## Usage
 
-### 1. Launch with Navigation Stack
+### 1. Launch the Monitor
 
-The monitor is automatically launched with the navigation stack:
+Launch the monitor service:
 ```bash
-ros2 launch nova_carter_bringup navigation_in_mega.launch.py mode:=mega enable_navigation:=true enable_3d_lidar_costmap:=true enable_2d_lidar_costmap:=true enable_nvblox_costmap:=false
+ros2 launch isaac_ros_mega_node_monitor isaac_ros_mega_node_monitor.launch.py
 ```
 
 ### 2. Check Node Status

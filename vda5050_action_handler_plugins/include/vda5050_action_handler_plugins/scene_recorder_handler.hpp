@@ -47,7 +47,6 @@ public:
 private:
   rclcpp_action::Client<StartRecordingAction>::SharedPtr start_recording_client_;
   rclcpp_action::Client<StopRecordingAction>::SharedPtr stop_recording_client_;
-
 };
 
 }  // namespace mission_client
