@@ -87,6 +87,10 @@ def generate_launch_description():
             default_value='False',
             description='Launch RViz if set to True'),
         DeclareLaunchArgument(
+            'serial_number',
+            default_value='g1_01',
+            description='Unique robot serial number used to construct VDA5050 MQTT topics'),
+        DeclareLaunchArgument(
             'base_frame',
             default_value='base_link',
             description='Robot base frame used for TF lookup'),
@@ -185,6 +189,7 @@ def generate_launch_description():
         launch_arguments={
             'namespace': namespace,
             'base_frame': base_frame,
+            'serial_number': LaunchConfiguration('serial_number'),
         }.items()
     )
 

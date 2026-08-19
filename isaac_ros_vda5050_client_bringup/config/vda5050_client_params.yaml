@@ -43,7 +43,7 @@ scene_recorder:
 gr00t_policy:
   plugin: isaac_ros::mission_client::Gr00tPolicyActionHandler
   action_types:
-    - gr00t_manipulation
+    - humanoid_manipulation
   action_server_name: "humanoid_task"
   default_timeout: 30.0
 

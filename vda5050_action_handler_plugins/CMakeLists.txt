@@ -42,14 +42,19 @@ set(dependencies
   pluginlib
   vda5050_action_handler
   vda5050_msgs
+  nav2_msgs
   isaac_ros_vda5050_client
   std_srvs
   isaac_ros_manipulation_interfaces
   isaac_ros_scene_recorder_interface
   isaac_ros_apriltag_interfaces
+  isaac_ros_cloud_control_interface
+  rclcpp_action
   tf2_ros
+  tf2
   tf2_geometry_msgs
   geometry_msgs
+  vision_msgs
 )
 
 add_library(vda5050_action_handler_plugins
@@ -58,6 +63,7 @@ add_library(vda5050_action_handler_plugins
   src/scene_recorder_handler.cpp
   src/apriltag_handler.cpp
   src/map_handler.cpp
+  src/gr00t_policy_action_handler.cpp
 )
 
 target_link_libraries(vda5050_action_handler_plugins
