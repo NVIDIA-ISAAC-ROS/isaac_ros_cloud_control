@@ -3,7 +3,7 @@
 <?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
 <package format="3">
   <name>vda5050_action_handler_plugins</name>
-  <version>4.5.0</version>
+  <version>4.6.0</version>
   <description>Plugins for VDA5050 action handler integration with Isaac ROS.</description>
   <maintainer email="isaac-ros-maintainers@nvidia.com">Isaac ROS Maintainers</maintainer>
   <license>NVIDIA Isaac ROS Software License</license>
@@ -13,6 +13,7 @@
 
   <depend>rclcpp</depend>
   <depend>rcl_action</depend>
+  <depend>rclcpp_action</depend>
   <depend>vda5050_msgs</depend>
   <depend>vda5050_action_handler</depend>
   <depend>isaac_ros_vda5050_client</depend>
@@ -20,9 +21,14 @@
   <depend>isaac_ros_manipulation_interfaces</depend>
   <depend>isaac_ros_scene_recorder_interface</depend>
   <depend>isaac_ros_apriltag_interfaces</depend>
+  <depend>isaac_ros_cloud_control_interface</depend>
+  <depend>nav2_msgs</depend>
+  <depend>std_srvs</depend>
   <depend>tf2_ros</depend>
+  <depend>tf2</depend>
   <depend>tf2_geometry_msgs</depend>
   <depend>geometry_msgs</depend>
+  <depend>vision_msgs</depend>
   <depend>nlohmann_json</depend>
   <depend>libcurl-dev</depend>
 

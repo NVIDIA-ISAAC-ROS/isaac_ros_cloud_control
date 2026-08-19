@@ -2,7 +2,7 @@
 
 VDA5050-compatible mission controller
 
-<div align="center"><a class="reference internal image-reference" href="https://media.githubusercontent.com/media/NVIDIA-ISAAC-ROS/.github/release-4.5/resources/isaac_ros_docs/repositories_and_packages/isaac_ros_cloud_control/MD.png/"><img alt="image" src="https://media.githubusercontent.com/media/NVIDIA-ISAAC-ROS/.github/release-4.5/resources/isaac_ros_docs/repositories_and_packages/isaac_ros_cloud_control/MD.png/" width="800px"/></a></div>
+<div align="center"><a class="reference internal image-reference" href="https://media.githubusercontent.com/media/NVIDIA-ISAAC-ROS/.github/release-4.6/resources/isaac_ros_docs/repositories_and_packages/isaac_ros_cloud_control/MD.png/"><img alt="image" src="https://media.githubusercontent.com/media/NVIDIA-ISAAC-ROS/.github/release-4.6/resources/isaac_ros_docs/repositories_and_packages/isaac_ros_cloud_control/MD.png/" width="800px"/></a></div>
 
 ---
 
@@ -44,13 +44,17 @@ Please visit the [Isaac ROS Documentation](https://nvidia-isaac-ros.github.io/re
   * [Quickstart](https://nvidia-isaac-ros.github.io/repositories_and_packages/isaac_ros_cloud_control/isaac_ros_mission_client/index.html#quickstart)
   * [API](https://nvidia-isaac-ros.github.io/repositories_and_packages/isaac_ros_cloud_control/isaac_ros_mission_client/index.html#api)
   * [Try More Examples](https://nvidia-isaac-ros.github.io/repositories_and_packages/isaac_ros_cloud_control/isaac_ros_mission_client/index.html#try-more-examples)
-* [`isaac_ros_scene_recorder`](https://nvidia-isaac-ros.github.io/repositories_and_packages/isaac_ros_cloud_control/isaac_ros_scene_recorder/index.html)
-  * [Usage](https://nvidia-isaac-ros.github.io/repositories_and_packages/isaac_ros_cloud_control/isaac_ros_scene_recorder/index.html#usage)
 * [`vda5050_action_handler`](https://nvidia-isaac-ros.github.io/repositories_and_packages/isaac_ros_cloud_control/vda5050_action_handler/index.html)
   * [Overview](https://nvidia-isaac-ros.github.io/repositories_and_packages/isaac_ros_cloud_control/vda5050_action_handler/index.html#overview)
   * [Interface](https://nvidia-isaac-ros.github.io/repositories_and_packages/isaac_ros_cloud_control/vda5050_action_handler/index.html#interface)
   * [Usage](https://nvidia-isaac-ros.github.io/repositories_and_packages/isaac_ros_cloud_control/vda5050_action_handler/index.html#usage)
   * [Troubleshooting](https://nvidia-isaac-ros.github.io/repositories_and_packages/isaac_ros_cloud_control/vda5050_action_handler/index.html#troubleshooting)
+* [`isaac_ros_humanoid_task_server`](https://nvidia-isaac-ros.github.io/repositories_and_packages/isaac_ros_cloud_control/isaac_ros_humanoid_task_server/index.html)
+  * [Overview](https://nvidia-isaac-ros.github.io/repositories_and_packages/isaac_ros_cloud_control/isaac_ros_humanoid_task_server/index.html#overview)
+  * [Usage](https://nvidia-isaac-ros.github.io/repositories_and_packages/isaac_ros_cloud_control/isaac_ros_humanoid_task_server/index.html#usage)
+  * [API](https://nvidia-isaac-ros.github.io/repositories_and_packages/isaac_ros_cloud_control/isaac_ros_humanoid_task_server/index.html#api)
+* [`isaac_ros_scene_recorder`](https://nvidia-isaac-ros.github.io/repositories_and_packages/isaac_ros_cloud_control/isaac_ros_scene_recorder/index.html)
+  * [Usage](https://nvidia-isaac-ros.github.io/repositories_and_packages/isaac_ros_cloud_control/isaac_ros_scene_recorder/index.html#usage)
 
 ## Quickstart
 
@@ -63,7 +67,7 @@ MCP tutorials in Cursor:
 
 ## Latest
 
-Update 2026-04-30: Compatibility and integration updates for the Isaac ROS 4.4.0 release
+Update 2026-08-18: Added Unitree G1 cloud control for navigation and GR00T manipulation missions on robot, added navigation-only cloud control in Isaac Sim
 
 ## Contributors
 

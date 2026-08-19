@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 
 <!--
- SPDX-FileCopyrightText: Copyright (c) 2022 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+ SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -20,24 +20,29 @@
 
 <?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
 <package format="3">
-  <name>vda5050_msgs</name>
+  <name>isaac_ros_humanoid_task_server</name>
   <version>4.6.0</version>
-  <description>Vda5050 Messages</description>
+  <description>
+    Humanoid task action server and GR00T output gate node for cloud-controlled
+    manipulation via the isaac_ros_deploy inference pipeline.
+  </description>
   <maintainer email="isaac-ros-maintainers@nvidia.com">Isaac ROS Maintainers</maintainer>
-  <license>NVIDIA Isaac ROS Software License</license>
+  <license>Apache-2.0</license>
+  <author>Yu Zhou</author>
 
-  <build_depend>rosidl_default_generators</build_depend>
-  <build_depend>isaac_ros_common</build_depend>
-  <exec_depend>rosidl_default_runtime</exec_depend>
+  <depend>geometry_msgs</depend>
+  <depend>isaac_ros_cloud_control_interface</depend>
+  <depend>isaac_ros_deploy_interfaces</depend>
+  <depend>rclpy</depend>
+  <depend>sensor_msgs</depend>
+  <depend>std_srvs</depend>
 
-  <depend>std_msgs</depend>
-
-  <test_depend>ament_lint_auto</test_depend>
-  <test_depend>ament_lint_common</test_depend>
-
-  <member_of_group>rosidl_interface_packages</member_of_group>
+  <test_depend>ament_copyright</test_depend>
+  <test_depend>ament_flake8</test_depend>
+  <test_depend>ament_pep257</test_depend>
+  <test_depend>python3-pytest</test_depend>
 
   <export>
-    <build_type>ament_cmake</build_type>
+    <build_type>ament_python</build_type>
   </export>
 </package>
