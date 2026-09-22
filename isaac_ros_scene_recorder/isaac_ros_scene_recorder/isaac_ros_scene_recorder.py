@@ -96,6 +96,7 @@ class RecorderActionServer(Node):
         self.recording = False
         if self.stop_recording_timer and self.stop_recording_timer.is_alive():
             self.stop_recording_timer.cancel()
+        self.stop_recording_timer = None
 
     def start_recording_action_callback(self, goal_handle):
         self.get_logger().info('Executing ROS scene recorder service call ...')
@@ -103,7 +104,7 @@ class RecorderActionServer(Node):
         result = StartRecording.Result()
         path = goal_handle.request.path
         if os.path.exists(path):
-            self.get_logger().warn(f'Output folder {path} already exists.')
+            self.get_logger().warning(f'Output folder {path} already exists.')
             goal_handle.succeed()
             result.success = False
             result.result_description = 'Output folder path already exists.'
@@ -130,7 +131,15 @@ class RecorderActionServer(Node):
 def main(args=None):
     rclpy.init(args=args)
     recorder_action_server = RecorderActionServer()
-    rclpy.spin(recorder_action_server)
+
+    try:
+        rclpy.spin(recorder_action_server)
+    except KeyboardInterrupt:
+        pass
+    finally:
+        recorder_action_server.destroy_node()
+        if rclpy.ok():
+            rclpy.shutdown()
 
 
 if __name__ == '__main__':

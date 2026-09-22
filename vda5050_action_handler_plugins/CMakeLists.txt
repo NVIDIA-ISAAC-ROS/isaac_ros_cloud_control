@@ -92,6 +92,8 @@ install(
 )
 
 if(BUILD_TESTING)
+  find_package(ament_cmake_gtest REQUIRED)
+  find_package(class_loader REQUIRED)
   find_package(ament_lint_auto REQUIRED)
   # the following line skips the linter which checks for copyrights
   # comment the line when a copyright and license is added to all source files
@@ -101,6 +103,15 @@ if(BUILD_TESTING)
   # a copyright and license is added to all source files
   set(ament_cmake_cpplint_FOUND TRUE)
   ament_lint_auto_find_test_dependencies()
+
+  ament_add_gtest(test_plugin_registration test/test_plugin_registration.cpp)
+  if(TARGET test_plugin_registration)
+    ament_target_dependencies(test_plugin_registration
+      class_loader
+      pluginlib
+      vda5050_action_handler
+    )
+  endif()
 endif()
 
 ament_export_include_directories(

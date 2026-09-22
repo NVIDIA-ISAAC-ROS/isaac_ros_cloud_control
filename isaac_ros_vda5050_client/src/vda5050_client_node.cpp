@@ -33,9 +33,9 @@
 #include <pluginlib/class_loader.hpp>
 #include "geometry_msgs/msg/pose_stamped.hpp"
 #include "lifecycle_msgs/msg/state.hpp"
-#include "tf2/exceptions.h"
-#include "tf2/LinearMath/Matrix3x3.h"
-#include "tf2/LinearMath/Quaternion.h"
+#include "tf2/exceptions.hpp"
+#include "tf2/LinearMath/Matrix3x3.hpp"
+#include "tf2/LinearMath/Quaternion.hpp"
 #include "tf2_geometry_msgs/tf2_geometry_msgs.hpp"
 #include "vda5050_msgs/msg/error_reference.hpp"
 #include "vda5050_msgs/msg/info.hpp"
@@ -432,6 +432,9 @@ void Vda5050ClientNode::NavigateThroughPoses()
     return;
   }
   auto goal_msg = NavThroughPoses::Goal();
+  // Lyrical NavigateThroughPoses uses nav_msgs/Goals (header + goals[]).
+  goal_msg.poses.header.frame_id = "map";
+  goal_msg.poses.header.stamp = rclcpp::Clock().now();
   for (size_t i = current_node_ + 1; i < current_order_->nodes.size(); i++) {
     auto pose_stamped = geometry_msgs::msg::PoseStamped();
 
@@ -448,7 +451,7 @@ void Vda5050ClientNode::NavigateThroughPoses()
       current_order_->nodes[i].node_position.theta);
     pose_stamped.pose.orientation = tf2::toMsg(orientation);
     pose_stamped.header.stamp = rclcpp::Clock().now();
-    goal_msg.poses.push_back(pose_stamped);
+    goal_msg.poses.goals.push_back(pose_stamped);
     if (current_order_->nodes[i].actions.size() > 0 ||
       i == current_order_->nodes.size() - 1 ||
       current_order_->nodes[i].node_position.allowed_deviation_x_y == 0)

@@ -21,7 +21,7 @@
 <?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
 <package format="3">
   <name>isaac_ros_humanoid_task_server</name>
-  <version>4.6.0</version>
+  <version>5.0.0</version>
   <description>
     Humanoid task action server and GR00T output gate node for cloud-controlled
     manipulation via the isaac_ros_deploy inference pipeline.

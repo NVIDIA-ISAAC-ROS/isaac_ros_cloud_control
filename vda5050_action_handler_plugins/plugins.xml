@@ -18,9 +18,6 @@
 -->
 
 <library path="vda5050_action_handler_plugins">
-  <class type="isaac_ros::mission_client::ExampleActionHandler" base_class_type="isaac_ros::mission_client::Vda5050ActionHandlerBase">
-    <description>This is an example action handler plugin.</description>
-  </class>
   <class type="isaac_ros::mission_client::DockingHandler" base_class_type="isaac_ros::mission_client::Vda5050ActionHandlerBase">
     <description>This is a docking action handler plugin.</description>
   </class>

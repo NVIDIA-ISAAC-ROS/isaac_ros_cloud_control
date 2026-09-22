@@ -55,7 +55,10 @@ def generate_launch_description():
     remappings = [('/tf', 'tf'), ('/tf_static', 'tf_static')]
 
     # Create our own temporary YAML files that include substitutions
-    param_substitutions = {'autostart': autostart}
+    param_substitutions = {
+        'autostart': autostart,
+        'use_sim_time': use_sim_time,
+    }
 
     configured_params = ParameterFile(
         RewrittenYaml(
@@ -202,7 +205,19 @@ def generate_launch_description():
                 name='lifecycle_manager_navigation',
                 output='screen',
                 arguments=['--ros-args', '--log-level', log_level],
-                parameters=[{'autostart': autostart}, {'node_names': lifecycle_nodes}],
+                parameters=[
+                    {
+                        'autostart': autostart,
+                        'node_names': lifecycle_nodes,
+                        # Nav2 waits for only half of this duration while a
+                        # lifecycle bond is first being formed. The default
+                        # is too short while the inference stack is starting.
+                        'bond_timeout': 30.0,
+                        # Lifecycle state services can briefly stall while
+                        # ros2_control and Triton create their DDS endpoints.
+                        'service_timeout': 30.0,
+                    },
+                ],
             ),
         ],
     )
@@ -269,7 +284,12 @@ def generate_launch_description():
                         plugin='nav2_lifecycle_manager::LifecycleManager',
                         name='lifecycle_manager_navigation',
                         parameters=[
-                            {'autostart': autostart, 'node_names': lifecycle_nodes}
+                            {
+                                'autostart': autostart,
+                                'node_names': lifecycle_nodes,
+                                'bond_timeout': 30.0,
+                                'service_timeout': 30.0,
+                            },
                         ],
                     ),
                 ],

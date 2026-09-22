@@ -23,7 +23,7 @@
 #include "isaac_ros_vda5050_client/vda5050_client_node.hpp"
 #include "vda5050_msgs/msg/action_state.hpp"
 #include "tf2_geometry_msgs/tf2_geometry_msgs.hpp"
-#include "tf2/exceptions.h"
+#include "tf2/exceptions.hpp"
 
 namespace isaac_ros
 {

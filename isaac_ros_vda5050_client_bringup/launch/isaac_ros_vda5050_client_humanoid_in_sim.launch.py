@@ -19,11 +19,15 @@ import os
 
 from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
-from launch.actions import DeclareLaunchArgument, IncludeLaunchDescription
+from launch.actions import (
+    DeclareLaunchArgument,
+    IncludeLaunchDescription,
+    TimerAction,
+)
 from launch.conditions import IfCondition
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.substitutions import LaunchConfiguration
-from launch_ros.actions import Node
+from launch_ros.actions import ComposableNodeContainer, Node
 from nav2_common.launch import RewrittenYaml
 
 
@@ -40,8 +44,12 @@ def generate_launch_description():
             description='Whether to apply a namespace to the navigation stack'),
         DeclareLaunchArgument(
             'use_composition',
-            default_value='False',
+            default_value='True',
             description='Whether to use composed Nav2 bringup'),
+        DeclareLaunchArgument(
+            'container_name',
+            default_value='nav2_container',
+            description='Container used for composed Nav2 nodes'),
         DeclareLaunchArgument(
             'use_sim_time',
             default_value='False',
@@ -75,6 +83,10 @@ def generate_launch_description():
             ),
             description='Full path to navigation param file to load'),
         DeclareLaunchArgument(
+            'navigation_start_delay_s',
+            default_value='5.0',
+            description='Seconds to wait before starting Nav2'),
+        DeclareLaunchArgument(
             'info_generator_params_file',
             default_value=os.path.join(
                 get_package_share_directory(
@@ -103,12 +115,14 @@ def generate_launch_description():
     namespace = LaunchConfiguration('namespace')
     use_namespace = LaunchConfiguration('use_namespace')
     use_composition = LaunchConfiguration('use_composition')
+    container_name = LaunchConfiguration('container_name')
     use_sim_time = LaunchConfiguration('use_sim_time')
     init_pose_x = LaunchConfiguration('init_pose_x', default=0.0)
     init_pose_y = LaunchConfiguration('init_pose_y', default=0.0)
     init_pose_yaw = LaunchConfiguration('init_pose_yaw', default=0.0)
     map_dir = LaunchConfiguration('map')
     nav_params_file = LaunchConfiguration('nav_params_file',)
+    navigation_start_delay_s = LaunchConfiguration('navigation_start_delay_s')
     info_generator_params_file = LaunchConfiguration('info_generator_params_file')
     launch_rviz = LaunchConfiguration('launch_rviz')
     base_frame = LaunchConfiguration('base_frame')
@@ -154,7 +168,11 @@ def generate_launch_description():
         namespace=namespace,
         name='map_to_world_publisher',
         remappings=[('/tf', 'tf'), ('/tf_static', 'tf_static')],
-        arguments=['0', '0', '0', '0', '0', '0', '1', 'map', 'world'],
+        arguments=[
+            '--x', '0', '--y', '0', '--z', '0',
+            '--qx', '0', '--qy', '0', '--qz', '0', '--qw', '1',
+            '--frame-id', 'map', '--child-frame-id', 'world',
+        ],
         output='screen',
         condition=IfCondition(use_static_tf)
     )
@@ -166,7 +184,11 @@ def generate_launch_description():
         namespace=namespace,
         name='static_transform_publisher_map_to_odom',
         remappings=[('/tf', 'tf'), ('/tf_static', 'tf_static')],
-        arguments=[init_pose_x, init_pose_y, '0', init_pose_yaw, '0', '0', 'map', 'odom'],
+        arguments=[
+            '--x', init_pose_x, '--y', init_pose_y, '--z', '0',
+            '--yaw', init_pose_yaw, '--pitch', '0', '--roll', '0',
+            '--frame-id', 'map', '--child-frame-id', 'odom',
+        ],
         output='screen',
         condition=IfCondition(use_static_tf)
     )
@@ -178,9 +200,21 @@ def generate_launch_description():
             'namespace': namespace,
             'use_namespace': use_namespace,
             'use_composition': use_composition,
+            'container_name': container_name,
             'map': map_dir,
             'use_sim_time': use_sim_time,
             'params_file': configured_params}.items(),
+    )
+
+    nav2_container = ComposableNodeContainer(
+        package='rclcpp_components',
+        executable='component_container_isolated',
+        name=container_name,
+        namespace=namespace,
+        parameters=[configured_params],
+        output='screen',
+        arguments=['--ros-args', '--log-level', 'info'],
+        condition=IfCondition(use_composition),
     )
 
     mission_client_launch = IncludeLaunchDescription(
@@ -201,11 +235,17 @@ def generate_launch_description():
                           'rviz_config': rviz_config_dir}.items(),
     )
 
-    return LaunchDescription(launch_args +
-                             [json_info_generator_node,
-                              nav2_bringup_launch,
-                              mission_client_launch,
-                              map_to_world_publisher,
-                              map_to_odom_publisher,
-                              rviz_launch,
-                              ])
+    return LaunchDescription(
+        launch_args + [
+            json_info_generator_node,
+            nav2_container,
+            TimerAction(
+                period=navigation_start_delay_s,
+                actions=[nav2_bringup_launch],
+            ),
+            mission_client_launch,
+            map_to_world_publisher,
+            map_to_odom_publisher,
+            rviz_launch,
+        ]
+    )
