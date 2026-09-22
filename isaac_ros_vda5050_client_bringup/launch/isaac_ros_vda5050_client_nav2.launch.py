@@ -40,7 +40,7 @@ def generate_launch_description():
             description='Whether to apply a namespace to the navigation stack'),
         DeclareLaunchArgument(
             'use_composition',
-            default_value='False',
+            default_value='True',
             description='Whether to use composed Nav2 bringup'),
         DeclareLaunchArgument(
             'use_sim_time',
@@ -150,7 +150,11 @@ def generate_launch_description():
         namespace=namespace,
         name='map_to_world_publisher',
         remappings=[('/tf', 'tf'), ('/tf_static', 'tf_static')],
-        arguments=['0', '0', '0', '0', '0', '0', '1', 'map', 'world'],
+        arguments=[
+            '--x', '0', '--y', '0', '--z', '0',
+            '--qx', '0', '--qy', '0', '--qz', '0', '--qw', '1',
+            '--frame-id', 'map', '--child-frame-id', 'world',
+        ],
         output='screen',
         condition=IfCondition(use_static_tf)
     )
@@ -162,7 +166,11 @@ def generate_launch_description():
         namespace=namespace,
         name='static_transform_publisher_map_to_odom',
         remappings=[('/tf', 'tf'), ('/tf_static', 'tf_static')],
-        arguments=[init_pose_x, init_pose_y, '0', init_pose_yaw, '0', '0', 'map', 'odom'],
+        arguments=[
+            '--x', init_pose_x, '--y', init_pose_y, '--z', '0',
+            '--yaw', init_pose_yaw, '--pitch', '0', '--roll', '0',
+            '--frame-id', 'map', '--child-frame-id', 'odom',
+        ],
         output='screen',
         condition=IfCondition(use_static_tf)
     )

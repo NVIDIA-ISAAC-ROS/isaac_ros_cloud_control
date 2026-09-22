@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 # SPDX-FileCopyrightText: NVIDIA CORPORATION & AFFILIATES
-# Copyright (c) 2021-2024 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+# Copyright (c) 2021-2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -82,13 +82,17 @@ class Nav2SimpleServer(Node):
         self.tf_broadcaster.sendTransform(t)
 
     def callback(self, goal_handle):
-        if len(goal_handle.request.poses) == 0:
+        poses = goal_handle.request.poses
+        if hasattr(poses, 'goals'):
+            poses = poses.goals
+
+        if len(poses) == 0:
             return GoalResponse.REJECT
         self.get_logger().info('Executing goal...')
 
         feedback_msg = NavigateThroughPoses.Feedback()
         feedback_msg.current_pose.pose.position.x = self.start_pos
-        feedback_msg.number_of_poses_remaining = len(goal_handle.request.poses)
+        feedback_msg.number_of_poses_remaining = len(poses)
         self._completed_poses = 0
 
         while feedback_msg.number_of_poses_remaining > 0:
@@ -96,7 +100,7 @@ class Nav2SimpleServer(Node):
                 self.get_logger().info('Goal canceled')
                 goal_handle.canceled()
                 return NavigateThroughPoses.Result()
-            target_pos = goal_handle.request.poses[self._completed_poses].pose.position.x
+            target_pos = poses[self._completed_poses].pose.position.x
             if self.current_pos == target_pos:
                 self._completed_poses += 1
                 feedback_msg.number_of_poses_remaining -= 1

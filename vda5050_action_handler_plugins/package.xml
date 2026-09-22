@@ -3,7 +3,7 @@
 <?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
 <package format="3">
   <name>vda5050_action_handler_plugins</name>
-  <version>4.6.0</version>
+  <version>5.0.0</version>
   <description>Plugins for VDA5050 action handler integration with Isaac ROS.</description>
   <maintainer email="isaac-ros-maintainers@nvidia.com">Isaac ROS Maintainers</maintainer>
   <license>NVIDIA Isaac ROS Software License</license>
@@ -34,6 +34,8 @@
 
   <test_depend>ament_lint_auto</test_depend>
   <test_depend>ament_lint_common</test_depend>
+  <test_depend>ament_cmake_gtest</test_depend>
+  <test_depend>class_loader</test_depend>
 
   <export>
     <build_type>ament_cmake</build_type>

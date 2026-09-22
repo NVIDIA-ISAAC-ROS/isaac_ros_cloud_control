@@ -89,6 +89,7 @@ bt_navigator_rclcpp_node:
 
 velocity_smoother:
   ros__parameters:
+    enable_stamped_cmd_vel: false
     smoothing_frequency: 20.0
     scale_velocities: false
     feedback: "OPEN_LOOP"
@@ -103,6 +104,7 @@ velocity_smoother:
 
 controller_server:
   ros__parameters:
+    enable_stamped_cmd_vel: false
     odom_topic: /chassis/odom
     use_sim_time: True
     controller_frequency: 20.0
@@ -138,6 +140,8 @@ controller_server:
       temperature: 0.3
       gamma: 0.015
       motion_model: "DiffDrive"
+      DiffDrive:
+        plugin: "mppi::DiffDriveMotionModel"
       visualize: false
       reset_period: 1.0 # (only in Humble)
       regenerate_noises: false
@@ -370,6 +374,7 @@ smoother_server:
 
 behavior_server:
   ros__parameters:
+    enable_stamped_cmd_vel: false
     costmap_topic: local_costmap/costmap_raw
     footprint_topic: local_costmap/published_footprint
     cycle_frequency: 5.0
@@ -407,6 +412,7 @@ waypoint_follower:
       waypoint_pause_duration: 200
 collision_monitor:
   ros__parameters:
+    enable_stamped_cmd_vel: false
     use_sim_time: True
     base_frame_id: "base_link"
     odom_frame_id: "odom"
@@ -436,8 +442,14 @@ collision_monitor:
       min_height: 0.15
       max_height: 2.0
       enabled: True
+
+following_server:
+  ros__parameters:
+    enable_stamped_cmd_vel: false
+
 docking_server:
   ros__parameters:
+    enable_stamped_cmd_vel: false
     use_sim_time: True
     controller_frequency: 50.0
     initial_perception_timeout: 5.0
