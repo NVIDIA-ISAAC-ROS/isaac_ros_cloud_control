@@ -38,6 +38,7 @@ constexpr char kClearObjects[] = "clear_objects";
 constexpr char kObjectId[] = "object_id";
 constexpr char kClassId[] = "class_id";
 constexpr char kPlacePose[] = "place_pose";
+constexpr size_t kPlacePoseElementCount = 7;
 constexpr int kTimeout = 5;
 constexpr char kMultiObjectPickAndPlaceAction[] = "multi_object_pick_and_place";
 constexpr char kMode[] = "mode";
@@ -281,15 +282,18 @@ void PickAndPlaceHandler::ExecutePickPlace(const vda5050_msgs::msg::Action & vda
     goal_msg.class_id = action_parameters_map[kClassId];
 
     std::vector<std::string> place_pose = split(action_parameters_map[kPlacePose], ',');
+    if (place_pose.size() != kPlacePoseElementCount) {
+      throw std::invalid_argument("place_pose must contain exactly 7 values");
+    }
 
-    goal_msg.place_pose.position.x = std::stod(place_pose[0]);
-    goal_msg.place_pose.position.y = std::stod(place_pose[1]);
-    goal_msg.place_pose.position.z = std::stod(place_pose[2]);
+    goal_msg.place_pose.position.x = std::stod(place_pose.at(0));
+    goal_msg.place_pose.position.y = std::stod(place_pose.at(1));
+    goal_msg.place_pose.position.z = std::stod(place_pose.at(2));
 
-    goal_msg.place_pose.orientation.x = std::stod(place_pose[3]);
-    goal_msg.place_pose.orientation.y = std::stod(place_pose[4]);
-    goal_msg.place_pose.orientation.z = std::stod(place_pose[5]);
-    goal_msg.place_pose.orientation.w = std::stod(place_pose[6]);
+    goal_msg.place_pose.orientation.x = std::stod(place_pose.at(3));
+    goal_msg.place_pose.orientation.y = std::stod(place_pose.at(4));
+    goal_msg.place_pose.orientation.z = std::stod(place_pose.at(5));
+    goal_msg.place_pose.orientation.w = std::stod(place_pose.at(6));
   } catch (std::out_of_range & e) {
     client_node_->UpdateActionState(vda5050_action, vda5050_msgs::msg::ActionState::FAILED,
           "Invalid action parameters");
