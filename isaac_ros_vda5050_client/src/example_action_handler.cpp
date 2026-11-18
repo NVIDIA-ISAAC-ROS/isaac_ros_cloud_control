@@ -16,6 +16,11 @@
 // SPDX-License-Identifier: Apache-2.0
 
 #include "isaac_ros_vda5050_client/example_action_handler.hpp"
+
+#include <cstddef>
+#include <exception>
+#include <stdexcept>
+
 #include "isaac_ros_vda5050_client/vda5050_client_node.hpp"
 #include "vda5050_msgs/msg/action_state.hpp"
 #include "rclcpp/rclcpp.hpp"
@@ -37,24 +42,50 @@ void ExampleActionHandler::Execute(const vda5050_msgs::msg::Action & vda5050_act
 {
   client_node_->UpdateActionState(
     vda5050_action, vda5050_msgs::msg::ActionState::RUNNING);
-  std::thread([this, vda5050_action]() {
-      std::unordered_map<std::string, std::string> action_parameters;
-      for (const auto & param : vda5050_action.action_parameters) {
-        action_parameters[param.key] = param.value;
+
+  std::unordered_map<std::string, std::string> action_parameters;
+  for (const auto & param : vda5050_action.action_parameters) {
+    action_parameters[param.key] = param.value;
+  }
+
+  int period = 1;
+  const auto period_parameter = action_parameters.find("period");
+  if (period_parameter != action_parameters.end()) {
+    try {
+      std::size_t parsed_characters = 0;
+      period = std::stoi(period_parameter->second, &parsed_characters);
+      if (parsed_characters != period_parameter->second.size() || period < 0) {
+        throw std::invalid_argument("period must be a non-negative integer");
       }
-      int period = 1;
-      if (action_parameters.find("period") != action_parameters.end()) {
-        period = std::stoi(action_parameters["period"]);
-      }
+    } catch (const std::exception & exception) {
+      RCLCPP_ERROR(
+        rclcpp::get_logger("ExampleActionHandler"),
+        "Example action %s has an invalid period parameter: %s",
+        vda5050_action.action_id.c_str(), exception.what());
+      client_node_->UpdateActionState(
+        vda5050_action, vda5050_msgs::msg::ActionState::FAILED,
+        "Invalid period action parameter");
+      return;
+    }
+  }
+
+  const auto success_parameter = action_parameters.find("success");
+  const bool should_succeed =
+    success_parameter != action_parameters.end() && success_parameter->second == "true";
+  const auto error_level_parameter = action_parameters.find("error_level");
+  const bool should_add_fatal_error =
+    error_level_parameter != action_parameters.end() && error_level_parameter->second == "FATAL";
+
+  std::thread([this, vda5050_action, period, should_succeed, should_add_fatal_error]() {
       std::this_thread::sleep_for(std::chrono::seconds(period));
 
-      if (action_parameters["success"] == "true") {
+      if (should_succeed) {
         client_node_->UpdateActionState(
         vda5050_action, vda5050_msgs::msg::ActionState::FINISHED);
         RCLCPP_INFO(rclcpp::get_logger("ExampleActionHandler"), "Example action %s finished",
             vda5050_action.action_id.c_str());
       } else {
-        if (action_parameters["error_level"] == "FATAL") {
+        if (should_add_fatal_error) {
           auto error =
           client_node_->CreateError(
             isaac_ros::mission_client::Vda5050ClientNode::ErrorLevel::FATAL,
